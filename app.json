@@ -4,10 +4,10 @@
     "slug": "react-native-workshop",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app-icon-deep-purple.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/eda-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
