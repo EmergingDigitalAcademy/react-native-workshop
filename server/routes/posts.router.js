@@ -43,26 +43,6 @@ router.get("/fetch-user-posts/:userId", (req, res) => {
   }
 });
 
-function findUser(array, id) {
-  const foundPosts = [];
-
-  console.log("looping over posts");
-  for (const post of posts) {
-    console.log("looping over user likes");
-    const userLikesArray = post.userLikes;
-
-    const didUserLike = userLikesArray.findIndex((userId) => userId === id) + 1;
-
-    if (didUserLike) {
-      foundPosts.push(post);
-    }
-  }
-
-  return foundPosts;
-}
-
-console.log(findUser(posts, 1));
-
 // Create post
 // Check if post length is less than 250 characters, error out if it isnt, else check
 // if the required data is included in the post, error out if it isnt, else increment
