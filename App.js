@@ -16,7 +16,7 @@ import {
 import { ImageBackground, View, StyleSheet, Image } from "react-native";
 import SplashImage from "./assets/app-splash.png";
 
-import EdaLogo from "./assets/eda-logo-white.png";
+import EdaLogo from "./assets/eda-logo-purple.png";
 
 // load fonts from assets file
 
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: myTheme.colors.background,
   },
   image: {
     overflow: "visible",
