@@ -7,7 +7,7 @@
     "icon": "./assets/app-icon-deep-purple.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/eda-splash.png",
+      "image": "./assets/app-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
