@@ -2,67 +2,22 @@ import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
+import { NavigationContainer } from "@react-navigation/native";
+import { Button, Provider as PaperProvider, Text } from "react-native-paper";
 import * as Font from "expo-font";
-import {
-  NavigationContainer,
-  DarkTheme as NavigationDarkTheme,
-} from "@react-navigation/native";
-import {
-  Provider as PaperProvider,
-  DarkTheme as PaperDarkTheme,
-  Text,
-} from "react-native-paper";
 
 import { ImageBackground, View, StyleSheet, Image } from "react-native";
 import SplashImage from "./assets/app-splash.png";
 
 import EdaLogo from "./assets/eda-logo-purple.png";
 
-// load fonts from assets file
+// myFonts is loading collected font .ttf files from assets folder
 
-const myFonts = {
-  "Montserrat-Light": require("./assets/Montserrat-Font/Montserrat-Light.ttf"),
-  "Montserrat-Medium": require("./assets/Montserrat-Font/Montserrat-Medium.ttf"),
-  "Montserrat-Regular": require("./assets/Montserrat-Font/Montserrat-Regular.ttf"),
-  "Montserrat-Thin": require("./assets/Montserrat-Font/Montserrat-Thin.ttf"),
-  "Montserrat-Bold": require("./assets/Montserrat-Font/Montserrat-Bold.ttf"),
-};
+import myFonts from "./src/constants/myFonts";
 
-// Shared theme to be used throughout the application
+// myTheme is the shared themimg used throughout the application
 
-const myTheme = {
-  ...NavigationDarkTheme,
-  ...PaperDarkTheme,
-  colors: {
-    ...NavigationDarkTheme.colors,
-    ...PaperDarkTheme.colors,
-    primary: "#6fbea3",
-    accent: "#26275f",
-    text: "#f3ebf4",
-  },
-  fonts: {
-    light: {
-      fontFamily: "Montserrat-Light",
-      fontWeight: "300",
-    },
-    medium: {
-      fontFamily: "Montserrat-Medium",
-      fontWeight: "500",
-    },
-    regular: {
-      fontFamily: "Montserrat-Regular",
-      fontWeight: "400",
-    },
-    thin: {
-      fontFamily: "Montserrat-Thin",
-      fontWeight: "100",
-    },
-    bold: {
-      fontFamily: "Montserrat-Bold",
-      fontWeight: "700",
-    },
-  },
-};
+import myTheme from "./src/constants/myTheme";
 
 // Styles for App.js
 
@@ -74,11 +29,10 @@ const styles = StyleSheet.create({
   },
   image: {
     overflow: "visible",
-    width: "25%",
-    height: "15%",
-    marginTop: "10%",
+    width: "50%",
+    height: "30%",
     position: "absolute",
-    top: 0
+    top: 0,
   },
   text: {
     fontSize: 20,
@@ -123,13 +77,17 @@ export default function App() {
             <StatusBar style="light" animated={true} />
             {/* Repalce me with your top Navigator */}
             <SafeAreaView style={styles.safeAreView}>
-              <Image source={EdaLogo} resizeMode={"cover"} style={styles.image} />
-                <Text style={styles.text}>
-                  Welcome to the EDA React Native Workshop!
-                </Text>
-                <Text style={styles.text}>
-                  We will start development of our Twitter Clone soon :)
-                </Text>
+              <Image
+                source={EdaLogo}
+                resizeMode={"cover"}
+                style={styles.image}
+              />
+              <Text style={styles.text}>
+                Welcome to the EDA React Native Workshop!
+              </Text>
+              <Text style={styles.text}>
+                We will start development of our Twitter Clone soon :)
+              </Text>
             </SafeAreaView>
             {/* End Replace Me */}
           </PaperProvider>
