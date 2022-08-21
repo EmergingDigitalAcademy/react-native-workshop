@@ -5,15 +5,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, ScrollView } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 
-import SERVER_ADDRESS from "../../../constants/serverAddress";
-
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
 export default function Landing({ navigation }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
-
-  console.log(SERVER_ADDRESS)
 
   const styles = StyleSheet.create({
     safeAreaView: {
