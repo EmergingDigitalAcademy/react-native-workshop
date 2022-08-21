@@ -2,12 +2,13 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Image } from "react-native";
+import { Button } from "react-native-paper";
 
 import edaLogoPurple from "../../../assets/eda-icon-purple.png";
 
 import Landing from "../screens/TopStack/Landing";
 import SignUp from "../screens/TopStack/SignUp";
-import { Button } from "react-native-paper";
+import Tabs from "../screens/TopStack/Tabs";
 
 export default function TopStack() {
   const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ export default function TopStack() {
     >
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Tabs" component={Tabs}></Stack.Screen>
     </Stack.Navigator>
   );
 }
