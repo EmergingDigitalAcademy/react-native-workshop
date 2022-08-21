@@ -5,17 +5,23 @@ import { Image } from "react-native";
 
 import edaLogoPurple from "../../../assets/eda-icon-purple.png";
 
+import Landing from "../screens/TopStack/Landing";
 import SignUp from "../screens/TopStack/SignUp";
+import { Button } from "react-native-paper";
 
 export default function TopStack() {
   const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
+        headerLeft: ({ ...props }) =>
+          props.canGoBack && (
+            <Button onPress={() => navigation.goBack()}>Cancel</Button>
+          ),
         headerTitle: () => (
           <Image
-          resizeMode="cover"
+            resizeMode="cover"
             source={edaLogoPurple}
             style={{
               height: 40,
@@ -24,9 +30,10 @@ export default function TopStack() {
             }}
           />
         ),
-      }}
+      })}
     >
-      <Stack.Screen name="Sign Up" component={SignUp} />
+      <Stack.Screen name="Landing" component={Landing} />
+      <Stack.Screen name="SignUp" component={SignUp} />
     </Stack.Navigator>
   );
 }
