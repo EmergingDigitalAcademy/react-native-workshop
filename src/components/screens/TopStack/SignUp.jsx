@@ -59,7 +59,7 @@ export default function SignUp() {
         <Text
           style={{ ...styles.legalAgreementText, color: myTheme.colors.accent }}
         >
-          By signing up, youn agree to our{" "}
+          By signing up, you agree to our{" "}
           <Text style={{ color: myTheme.colors.primary }}>Terms</Text>,{" "}
           <Text style={{ color: myTheme.colors.primary }}>Privacy Policy</Text>,
           and <Text style={{ color: myTheme.colors.primary }}>Cookie Use</Text>.
