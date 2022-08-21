@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { NavigationContainer } from "@react-navigation/native";
-import { Button, Provider as PaperProvider, Text } from "react-native-paper";
+import { Provider as PaperProvider } from "react-native-paper";
 import * as Font from "expo-font";
 
-import { ImageBackground, View, StyleSheet, Image } from "react-native";
+import { ImageBackground, View, StyleSheet } from "react-native";
 import SplashImage from "./assets/app-splash.png";
 
-import EdaLogo from "./assets/eda-logo-purple.png";
+import TopStack from "./src/components/navigators/TopStack";
 
 // myFonts is loading collected font .ttf files from assets folder
 
@@ -75,21 +75,7 @@ export default function App() {
         <NavigationContainer theme={myTheme}>
           <PaperProvider theme={myTheme}>
             <StatusBar style="light" animated={true} />
-            {/* Repalce me with your top Navigator */}
-            <SafeAreaView style={styles.safeAreView}>
-              <Image
-                source={EdaLogo}
-                resizeMode={"cover"}
-                style={styles.image}
-              />
-              <Text style={styles.text}>
-                Welcome to the EDA React Native Workshop!
-              </Text>
-              <Text style={styles.text}>
-                We will start development of our Twitter Clone soon :)
-              </Text>
-            </SafeAreaView>
-            {/* End Replace Me */}
+            <TopStack />
           </PaperProvider>
         </NavigationContainer>
       </SafeAreaProvider>
