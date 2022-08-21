@@ -3,8 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { NavigationContainer } from "@react-navigation/native";
-
-import { Provider as PaperProvider, Text } from "react-native-paper";
+import { Provider as PaperProvider } from "react-native-paper";
 import * as Font from "expo-font";
 
 import { ImageBackground, View, StyleSheet } from "react-native";
