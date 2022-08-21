@@ -1,9 +1,5 @@
-import {
-  DarkTheme as NavigationDarkTheme,
-} from "@react-navigation/native";
-import {
-  DarkTheme as PaperDarkTheme,
-} from "react-native-paper";
+import { DarkTheme as NavigationDarkTheme } from "@react-navigation/native";
+import { DarkTheme as PaperDarkTheme } from "react-native-paper";
 
 export default {
   ...NavigationDarkTheme,
