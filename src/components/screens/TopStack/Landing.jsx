@@ -7,42 +7,38 @@ import { Button, Text, useTheme } from "react-native-paper";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
-const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-    alignItems: "center",
-    marginHorizontal: "10%",
-  },
-  image: {
-    height: "7.5%",
-    width: "7.5%",
-    overflow: "visible",
-  },
-  contentWrapper: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  text: {
-    fontFamily: "Montserrat-Bold",
-    fontSize: 28,
-    marginBottom: "75%",
-  },
-  buttonLabelStyle: {
-    fontFamily: "Montserrat-Bold",
-    fontSize: 16,
-    marginVertical: "5%",
-  },
-  legalAgreementText: {
-    fontSize: 16,
-    marginTop: "10%",
-    marginBottom: "15%"
-  },
-  subText: {marginBottom: "5%"},
-});
-
 export default function Landing({ navigation }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
+
+  const styles = StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      marginHorizontal: "10%",
+    },
+    contentWrapper: {
+      flex: 1,
+      justifyContent: "flex-end",
+    },
+    text: {
+      fontFamily: "Montserrat-Bold",
+      fontSize: 28,
+      marginBottom: "75%",
+    },
+    buttonLabelStyle: {
+      fontFamily: "Montserrat-Bold",
+      fontSize: 16,
+      marginVertical: "5%",
+    },
+    legalAgreementText: {
+      fontSize: 16,
+      marginTop: "10%",
+      marginBottom: "15%",
+    },
+    subText: {
+      marginBottom: "5%",
+    },
+  });
 
   if (!isFocused) {
     return <EmptyStateView />;
