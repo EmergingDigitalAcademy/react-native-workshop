@@ -10,9 +10,12 @@ export default function Tabs() {
   const isFocused = useIsFocused();
 
   // renders EmptyStateView if the screen is not in focuse to save resources
+  // setTimeout is so the screen moving away doesnt disappear right away
 
   if (!isFocused) {
-    return <EmptyStateView />;
+    setTimeout(() => {
+      return <EmptyStateView />;
+    }, 100);
   }
 
   return (
