@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import * as Font from "expo-font";
 
-import { ImageBackground, View, StyleSheet } from "react-native";
+import { ImageBackground, View } from "react-native";
 import SplashImage from "./assets/app-splash.png";
 
 import TopStack from "./src/components/navigators/TopStack";
@@ -18,29 +18,6 @@ import myFonts from "./src/constants/myFonts";
 // myTheme is the shared themimg used throughout the application
 
 import myTheme from "./src/constants/myTheme";
-
-// Styles for App.js
-
-const styles = StyleSheet.create({
-  safeAreView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    overflow: "visible",
-    width: "50%",
-    height: "30%",
-    position: "absolute",
-    top: 0,
-  },
-  text: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: "5%",
-    color: myTheme.colors.text,
-  },
-});
 
 export default function App() {
   // config to enable fonts within the application
