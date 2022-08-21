@@ -105,6 +105,7 @@ export default function App() {
     return (
       <StoreProvider store={store}>
         <NavigationContainer theme={myTheme}>
+<<<<<<< HEAD
           <SafeAreaProvider>
             <PaperProvider theme={myTheme}>
               <StatusBar style="light" animated={true} />
@@ -115,6 +116,12 @@ export default function App() {
               />
             </PaperProvider>
           </SafeAreaProvider>
+=======
+          <PaperProvider theme={myTheme}>
+            <StatusBar style="light" animated={true} />
+            <TopStack />
+          </PaperProvider>
+>>>>>>> d79c2c6 (setup top navigator and initliazed signup page)
         </NavigationContainer>
       </StoreProvider>
     );
