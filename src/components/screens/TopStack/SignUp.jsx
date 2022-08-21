@@ -14,6 +14,8 @@ export default function SignUp() {
     email: "",
   });
 
+  const submit = () => {}
+
   const styles = StyleSheet.create({
     safeAreaView: {
       flex: 1,
@@ -86,7 +88,7 @@ export default function SignUp() {
           labelStyle={styles.buttonLabelStyle}
           onPress={() => {}}
         >
-          Next
+          Submit
         </Button>
       </KeyboardAwareScrollView>
     </SafeAreaView>

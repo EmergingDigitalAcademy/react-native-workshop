@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const users = require("../modules/users.json");
-const helpers = require("../modules/helpers")
+const helpers = require("../modules/helpers");
 
 // Used to track the user ID so no user has the same ID as another user, even if there are deleted users
 
@@ -15,7 +15,7 @@ const missingDataErrorMessage = helpers.errorMessages.missingDataErrorMessage;
 // Get all users
 
 router.get("/fetch", (req, res) => {
-  console.log("in fetch all users")
+  console.log("in fetch all users");
 
   res.status(200).send(users);
 });
