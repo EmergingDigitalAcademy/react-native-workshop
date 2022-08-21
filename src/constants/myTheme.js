@@ -8,12 +8,13 @@ import {
 export default {
   ...NavigationDarkTheme,
   ...PaperDarkTheme,
+  roundness: 100,
   colors: {
     ...NavigationDarkTheme.colors,
     ...PaperDarkTheme.colors,
     primary: "#6fbea3",
     secondary: "#26275f",
-    accent: "#f3ebf4",
+    accent: "#767597",
   },
   fonts: {
     light: {
