@@ -82,6 +82,10 @@ export default function App() {
     } catch (error) {
       console.log(error);
     }
+
+    setTimeout(() => {
+      setCredentialsLoaded(true);
+    }, 1000);
   };
 
   // Enables react-native-screens for better rendering optimization
