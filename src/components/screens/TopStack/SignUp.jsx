@@ -20,7 +20,7 @@ import EmptyStateView from "../../../reused-components/EmptyStateView";
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
 
-export default function SignUp({ navigation }) {
+export default function SignUp() {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const dispatch = useDispatch();

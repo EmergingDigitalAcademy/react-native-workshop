@@ -33,6 +33,16 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
     }
   };
 
+  const renderSwitch = () => {
+    setTimeout(() => {
+      if (storedUsername && storedEmail) {
+        return <Stack.Screen name="Tabs" component={Tabs} />;
+      } else {
+        return <Stack.Screen name="Landing" component={Landing} />;
+      }
+    }, 1000);
+  };
+
   return (
     <Stack.Navigator
       initialRouteName={routeSwitch()}
@@ -55,9 +65,14 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
         ),
       })}
     >
+      {/*
+        if both of the values are present and not null, navigate to tabs, instead
+        navigate to landing (set timeout to prevent "flash" of information, landing will
+        still show, giving time for data to update )
+      */}
       <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Tabs" component={TabStack} />
+      <Stack.Screen name="SignUp" component={SignUp} />
     </Stack.Navigator>
   );
 }

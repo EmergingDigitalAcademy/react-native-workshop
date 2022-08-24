@@ -43,7 +43,6 @@ export default function App() {
   }, []);
 
   // config to enable fonts within the application
-
   const loadFonstAsync = async () => {
     await Font.loadAsync(myFonts);
     setFontsLoaded(true);
