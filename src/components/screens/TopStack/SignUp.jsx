@@ -19,7 +19,7 @@ import EmptyStateView from "../../../reused-components/EmptyStateView";
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const [visible, setVisible] = useState(false);
@@ -68,6 +68,8 @@ export default function SignUp() {
       // modal won't unmount if the response happens too fast
       setTimeout(() => {
         setVisible(false);
+
+        navigation.navigate("Tabs");
       }, 1000);
     } catch (error) {
       console.log(error);

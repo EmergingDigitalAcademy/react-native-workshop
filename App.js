@@ -22,14 +22,16 @@ import myFonts from "./src/constants/myFonts";
 
 import myTheme from "./src/constants/myTheme";
 
+// Redux
+
+import _rootReducer from "./src/redux/reducers/_root.reducer";
+
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [credentialsLoaded, setCredentialsLoaded] = useState(false);
   const [storedUsername, setStoredUsername] = useState("");
   const [storedEmail, setStoredEmail] = useState("");
-  const store = createStore(rootReducer, applyMiddleware());
-
-  console.log(storedEmail, storedUsername);
+  const store = createStore(_rootReducer, applyMiddleware());
 
   useEffect(() => {
     getSecureStoreDetails();
@@ -86,7 +88,7 @@ export default function App() {
           <SafeAreaProvider>
             <PaperProvider theme={myTheme}>
               <StatusBar style="light" animated={true} />
-              <TopStack />
+              <TopStack storedEmail={storedEmail} storedUsername={storedUsername} />
             </PaperProvider>
           </SafeAreaProvider>
         </NavigationContainer>
