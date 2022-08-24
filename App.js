@@ -5,6 +5,7 @@ import { enableScreens } from "react-native-screens";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import * as Font from "expo-font";
+import * as SecureStore from "expo-secure-store";
 
 import { ImageBackground, View } from "react-native";
 import SplashImage from "./assets/app-splash.png";
@@ -20,17 +21,39 @@ import myFonts from "./src/constants/myFonts";
 import myTheme from "./src/constants/myTheme";
 
 export default function App() {
-  // config to enable fonts within the application
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [storedUsername, setStoredUsername] = useState("");
+  const [storedEmail, setStoredEmail] = useState("");
 
+  console.log(storedEmail, storedUsername)
+
+  useEffect(() => {
+    getSecureStoreDetails();
+    loadFonstAsync();
+  }, []);
+
+  // config to enable fonts within the application
   const loadFonstAsync = async () => {
     await Font.loadAsync(myFonts);
     setFontsLoaded(true);
   };
 
-  useEffect(() => {
-    loadFonstAsync();
-  }, []);
+  // Grab the stored user credentials from the device securely stored data
+  // set the set stored username and email state to the response of the async functions
+  // if all credentials come back (user has been created or has logged in)
+  // grab the user data from the server and store user object in redux
+
+  const getSecureStoreDetails = async () => {
+    const usernameResponse = await SecureStore.getItemAsync("username");
+    const emailResponse = await SecureStore.getItemAsync("email");
+
+    setStoredUsername(usernameResponse);
+    setStoredEmail(emailResponse);
+
+    if ((usernameResponse && emailResponse)) {
+      console.log("hello");
+    }
+  };
 
   // Enables react-native-screens for better rendering optimization
 

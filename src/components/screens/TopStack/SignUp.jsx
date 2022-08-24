@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -18,7 +19,7 @@ import EmptyStateView from "../../../reused-components/EmptyStateView";
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
 
-export default function SignUp({ navigation }) {
+export default function SignUp() {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const [visible, setVisible] = useState(false);
@@ -56,18 +57,17 @@ export default function SignUp({ navigation }) {
         newUser
       );
 
+      await SecureStore.setItemAsync("username", newUser.username);
+      await SecureStore.setItemAsync("email", newUser.email);
+
       setNewUser({
         username: "",
         email: "",
       });
 
-      console.log(response);
-
       // modal won't unmount if the response happens too fast
       setTimeout(() => {
         setVisible(false);
-        
-        navigation.navigate("Tabs")
       }, 1000);
     } catch (error) {
       console.log(error);

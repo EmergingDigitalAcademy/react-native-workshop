@@ -13,6 +13,16 @@ import Tabs from "../screens/TopStack/Tabs";
 export default function TopStack() {
   const Stack = createNativeStackNavigator();
 
+  const renderSwitch = () => {
+    setTimeout(() => {
+      if (storedUsername && storedEmail) {
+        return <Stack.Screen name="Tabs" component={Tabs} />;
+      } else {
+        return <Stack.Screen name="Landing" component={Landing} />;
+      }
+    }, 1000);
+  };
+
   return (
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
@@ -33,9 +43,14 @@ export default function TopStack() {
         ),
       })}
     >
+      {/*
+        if both of the values are present and not null, navigate to tabs, instead
+        navigate to landing (set timeout to prevent "flash" of information, landing will
+        still show, giving time for data to update )
+      */}
       <Stack.Screen name="Landing" component={Landing} />
+      <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Tabs" component={Tabs}></Stack.Screen>
     </Stack.Navigator>
   );
 }
