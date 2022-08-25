@@ -39,6 +39,7 @@ export default function App() {
   }, []);
 
   // config to enable fonts within the application
+
   const loadFonstAsync = async () => {
     await Font.loadAsync(myFonts);
     setFontsLoaded(true);
@@ -49,7 +50,6 @@ export default function App() {
   // if all credentials come back (user has been created or has logged in)
   // grab the user data from the server and store user object in redux
   // (set timeout to prevent "flash" of information, I want to give data time to update
-  // before showing any screens to prevent showing landing and then navigating to tabStack
 
   const getSecureStoreDetails = async () => {
     const usernameResponse = await SecureStore.getItemAsync("username");
@@ -71,7 +71,9 @@ export default function App() {
 
   enableScreens();
 
-  if (!fontsLoaded && !credentialsLoaded) {
+  // if either fonts or credentials are not done loading, render the splash screen
+
+  if (!fontsLoaded || !credentialsLoaded) {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
