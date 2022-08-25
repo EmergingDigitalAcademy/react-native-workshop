@@ -9,6 +9,9 @@ import { Provider as PaperProvider } from "react-native-paper";
 import * as Font from "expo-font";
 import * as SecureStore from "expo-secure-store";
 
+import axios from "axios";
+import SERVER_ADDRESS from "./src/constants/serverAddress";
+
 import { ImageBackground, View } from "react-native";
 import SplashImage from "./assets/app-splash.png";
 
@@ -29,8 +32,9 @@ import _rootReducer from "./src/redux/reducers/_root.reducer";
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [credentialsLoaded, setCredentialsLoaded] = useState(false);
-  const [storedUsername, setStoredUsername] = useState("");
-  const [storedEmail, setStoredEmail] = useState("");
+  const [storedUsername, setStoredUsername] = useState(null);
+  const [storedEmail, setStoredEmail] = useState(null);
+  const [userObject, setUserObject] = useState({});
   const store = createStore(_rootReducer, applyMiddleware());
 
   useEffect(() => {
@@ -52,19 +56,30 @@ export default function App() {
   // (set timeout to prevent "flash" of information, I want to give data time to update
 
   const getSecureStoreDetails = async () => {
-    const usernameResponse = await SecureStore.getItemAsync("username");
-    const emailResponse = await SecureStore.getItemAsync("email");
+    try {
+      const usernameResponse = await SecureStore.getItemAsync("username");
+      const emailResponse = await SecureStore.getItemAsync("email");
 
-    setStoredUsername(usernameResponse);
-    setStoredEmail(emailResponse);
+      setStoredUsername(usernameResponse);
+      setStoredEmail(emailResponse);
 
-    if (usernameResponse && emailResponse) {
-      console.log("hello");
-    }
+      if (
+        usernameResponse &&
+        typeof usernameResponse !== "object" &&
+        emailResponse &&
+        typeof emailResponse !== "object"
+      ) {
+        const userResponse = await axios.get(
+          `${SERVER_ADDRESS}/user/fetch/${emailResponse}`
+        );
 
-    setTimeout(() => {
+        setUserObject(userResponse.data);
+      }
+
       setCredentialsLoaded(true);
-    }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Enables react-native-screens for better rendering optimization
@@ -90,7 +105,11 @@ export default function App() {
           <SafeAreaProvider>
             <PaperProvider theme={myTheme}>
               <StatusBar style="light" animated={true} />
-              <TopStack storedEmail={storedEmail} storedUsername={storedUsername} />
+              <TopStack
+                userObject={userObject}
+                storedEmail={storedEmail}
+                storedUsername={storedUsername}
+              />
             </PaperProvider>
           </SafeAreaProvider>
         </NavigationContainer>

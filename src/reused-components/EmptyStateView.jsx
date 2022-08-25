@@ -1,9 +1,23 @@
 import React from "react";
 
-// component to render when screens are not in view
+import { ActivityIndicator, View } from "react-native";
+
+// A spiny circle to display in between scene change so there is no "flashing" of information
 
 function EmptyStateView() {
-  return <></>;
+  return (
+    <View
+      style={{
+        height: "100%",
+        width: "100%",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <ActivityIndicator size="large" />
+    </View>
+  );
 }
 
 export default EmptyStateView;
