@@ -20,13 +20,14 @@ router.get("/fetch", (req, res) => {
   res.status(200).send(users);
 });
 
-// Get user by ID
-// Grab ID from request parameters and call function to find index
+// Get user by ID or email
+// Grab ID or email from request parameters and call function to find index
 // Send back the user info at the user index
 
-router.get("/fetch/:id", (req, res) => {
+router.get("/fetch/:idOrEmail", (req, res) => {
   console.log("in fetch by id");
-  const userIndex = helpers.findIndexById(users, req.params.id);
+  const idOrEmail = req.params.idOrEmail;
+  const userIndex = helpers.findIndexByIdOrEmail(users, idOrEmail);
 
   if (userIndex > -1) {
     res.status(200).send(users[userIndex]);
@@ -66,7 +67,7 @@ router.put("/update-user/:id", (req, res) => {
   const updatedUser = req.body;
   const username = req.body.username;
   const email = req.body.email;
-  const userIndex = helpers.findIndexById(users, req.params.id);
+  const userIndex = helpers.findIndexByIdOrEmail(users, req.params.id);
 
   if (!username || !email) {
     console.log(missingDataErrorMessage);
@@ -88,7 +89,7 @@ router.put("/update-user/:id", (req, res) => {
 
 router.delete("/delete-user/:id", (req, res) => {
   console.log("in delete user");
-  const userIndex = helpers.findIndexById(users, req.params.id);
+  const userIndex = helpers.findIndexByIdOrEmail(users, req.params.id);
 
   if (userIndex > -1) {
     users.splice(userIndex, 1);
