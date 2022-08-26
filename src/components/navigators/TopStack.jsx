@@ -71,8 +71,8 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
         still show, giving time for data to update )
       */}
       <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="Tabs" component={TabStack} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Tabs" component={TabStack} />
     </Stack.Navigator>
   );
 }
