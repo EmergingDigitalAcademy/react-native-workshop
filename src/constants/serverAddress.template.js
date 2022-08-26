@@ -1,4 +1,4 @@
-import { DEV_SERVER_ADDRESS, PROD_SERVER_ADDRESS} from "@env";
+import { DEV_SERVER_ADDRESS, PROD_SERVER_ADDRESS } from "@env";
 import Constants from "expo-constants";
 
 let SERVER_ADDRESS;
