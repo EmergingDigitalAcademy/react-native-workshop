@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createStore, applyMiddleware } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import { Provider as StoreProvider } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
