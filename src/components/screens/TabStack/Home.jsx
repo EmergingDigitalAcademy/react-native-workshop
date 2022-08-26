@@ -6,7 +6,7 @@ import { Text } from "react-native-paper";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
-export default function Tabs() {
+export default function Home() {
   const isFocused = useIsFocused();
 
   // renders EmptyStateView if the screen is not in focuse to save resources

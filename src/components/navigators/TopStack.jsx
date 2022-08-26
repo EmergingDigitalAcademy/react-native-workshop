@@ -9,7 +9,7 @@ import edaLogoPurple from "../../../assets/eda-icon-purple.png";
 
 import Landing from "../screens/TopStack/Landing";
 import SignUp from "../screens/TopStack/SignUp";
-import Tabs from "../screens/TopStack/Tabs";
+import TabStack from "./TabStack";
 
 export default function TopStack({ userObject, storedEmail, storedUsername }) {
   const Stack = createNativeStackNavigator();
@@ -23,7 +23,7 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
   //
 
   // if either the stored username or email are null (no stored data)
-  // send the user to the Landing screen, else send them to the app  
+  // send the user to the Landing screen, else send them to the app
 
   const routeSwitch = () => {
     if (storedUsername === null || storedEmail === null) {
@@ -36,9 +36,10 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
   return (
     <Stack.Navigator
       initialRouteName={routeSwitch()}
-      screenOptions={({ navigation }) => ({
+      screenOptions={({ navigation, route }) => ({
         headerLeft: ({ ...props }) =>
-          props.canGoBack && (
+          props.canGoBack &&
+          route.name !== "Tabs" && (
             <Button onPress={() => navigation.goBack()}>Cancel</Button>
           ),
         headerTitle: () => (
@@ -56,7 +57,7 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
     >
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="Tabs" component={TabStack} />
     </Stack.Navigator>
   );
 }
