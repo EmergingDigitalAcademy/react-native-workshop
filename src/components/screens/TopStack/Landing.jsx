@@ -43,7 +43,7 @@ export default function Landing({ navigation }) {
   // renders EmptyStateView if the screen is not in focuse to save resources
 
   if (!isFocused) {
-      return <EmptyStateView />;
+    return <EmptyStateView />;
   }
 
   return (

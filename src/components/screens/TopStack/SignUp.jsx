@@ -112,7 +112,7 @@ export default function SignUp({ navigation }) {
 
   if (!isFocused) {
     return <EmptyStateView />;
-}
+  }
 
   return (
     <>

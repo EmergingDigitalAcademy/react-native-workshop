@@ -13,7 +13,7 @@ export default function Home() {
 
   if (!isFocused) {
     return <EmptyStateView />;
-}
+  }
 
   return (
     <SafeAreaView edges={["bottom", "left", "right"]}>
