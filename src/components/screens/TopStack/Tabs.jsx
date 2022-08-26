@@ -13,7 +13,7 @@ export default function Tabs() {
 
   if (!isFocused) {
     return <EmptyStateView />;
-}
+  }
 
   return (
     <SafeAreaView edges={["bottom", "left", "right"]}>

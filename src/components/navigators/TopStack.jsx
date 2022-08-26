@@ -23,7 +23,7 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
   //
 
   // if either the stored username or email are null (no stored data)
-  // send the user to the Landing screen, else send them to the app  
+  // send the user to the Landing screen, else send them to the app
 
   const routeSwitch = () => {
     if (storedUsername === null || storedEmail === null) {
