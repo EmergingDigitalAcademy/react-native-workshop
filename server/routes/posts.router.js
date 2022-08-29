@@ -68,7 +68,7 @@ router.post("/add-post", (req, res) => {
         userId: Number(userId),
         text,
       });
-      res.status(201).send(posts[posts.length - 1]);
+      res.status(201).send(posts[posts.length - 1].reverse());
     }
   }
 });
