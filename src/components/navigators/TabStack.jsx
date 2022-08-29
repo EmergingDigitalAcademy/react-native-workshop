@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 
 import Home from "../screens/TabStack/Home";
+import Account from "../screens/TabStack/Account";
+import Settings from "../screens/TabStack/Settings";
 
 export default function TabStack() {
   const Stack = createBottomTabNavigator();
@@ -29,7 +31,7 @@ export default function TabStack() {
       />
       <Stack.Screen
         name="Account"
-        component={() => {}}
+        component={Account}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
@@ -42,7 +44,7 @@ export default function TabStack() {
       />
       <Stack.Screen
         name="Settings"
-        component={() => {}}
+        component={Settings}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons

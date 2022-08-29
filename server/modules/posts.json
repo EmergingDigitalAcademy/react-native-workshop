@@ -2,25 +2,13 @@
   {
     "id": 1,
     "userId": 1,
-    "userLikes": [1, 4],
+    "userLikes": [],
     "text": "Hello there"
   },
   {
     "id": 2,
-    "userId": 1,
-    "userLikes": [1, 3],
-    "text": "Hello"
-  },
-  {
-    "id": 3,
-    "userId": 1,
-    "userLikes": [1, 4],
-    "text": "There"
-  },
-  {
-    "id": 4,
     "userId": 2,
-    "userLikes": [2, 8],
+    "userLikes": [],
     "text": "General Kenobi >:("
   }
 ]

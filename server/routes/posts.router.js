@@ -20,7 +20,7 @@ const alreadyLikedErrorMessage = "post has already been liked by user";
 router.get("/fetch", (req, res) => {
   console.log("in fetch all posts");
 
-  res.status(200).send(posts);
+  res.status(200).send(posts.reverse());
 });
 
 // Get all posts of user by userId
@@ -36,7 +36,7 @@ router.get("/fetch-user-posts/:userId", (req, res) => {
 
   if (filteredPosts.length > 0) {
     // only return 200 if the user has posts
-    res.status(200).send(filteredPosts);
+    res.status(200).send(filteredPosts.reverse());
   } else {
     console.log(noPostsErrorMessage);
     res.status(404).send(noPostsErrorMessage);
