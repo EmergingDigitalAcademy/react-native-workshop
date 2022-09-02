@@ -20,7 +20,7 @@ import EmptyStateView from "../../../reused-components/EmptyStateView";
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const dispatch = useDispatch();
@@ -109,9 +109,12 @@ export default function SignUp() {
   };
 
   // renders EmptyStateView if the screen is not in focuse to save resources
+  // setTimeout to preserve the screen as navigation is happening so the data doesn't disappear
 
   if (!isFocused) {
-    return <EmptyStateView />;
+    setTimeout(() => {
+      return <EmptyStateView />;
+    }, 100);
   }
 
   return (
@@ -147,7 +150,7 @@ export default function SignUp() {
           <View
             style={{
               borderTopColor: myTheme.colors.disabled,
-              borderTopWidth: 1,
+              borderTopWidth: .25,
               margin: "10%",
             }}
           />

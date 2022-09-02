@@ -22,25 +22,21 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
     dispatch({ type: "SET_USER_DETAILS", payload: userObject });
   //
 
-  // if either the stored username or email are null (no stored data)
-  // send the user to the Landing screen, else send them to the app
+  // if either the stored username or email (data from the device) are null (no stored data),
+  // or if the userObject returned from the server is empty (no stored data on the server
+  // associated to the stored credentials) send the user to the Landing screen
+  // else send them to the app
 
   const routeSwitch = () => {
-    if (storedUsername === null || storedEmail === null) {
+    if (
+      storedUsername === null ||
+      storedEmail === null ||
+      Object.keys(userObject).length === 0
+    ) {
       return "Landing";
     } else {
       return "Tabs";
     }
-  };
-
-  const renderSwitch = () => {
-    setTimeout(() => {
-      if (storedUsername && storedEmail) {
-        return <Stack.Screen name="Tabs" component={Tabs} />;
-      } else {
-        return <Stack.Screen name="Landing" component={Landing} />;
-      }
-    }, 1000);
   };
 
   return (
@@ -65,11 +61,6 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
         ),
       })}
     >
-      {/*
-        if both of the values are present and not null, navigate to tabs, instead
-        navigate to landing (set timeout to prevent "flash" of information, landing will
-        still show, giving time for data to update )
-      */}
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Tabs" component={TabStack} />
