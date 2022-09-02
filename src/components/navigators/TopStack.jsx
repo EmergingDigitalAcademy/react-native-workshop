@@ -26,7 +26,11 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
   // send the user to the Landing screen, else send them to the app
 
   const routeSwitch = () => {
-    if (storedUsername === null || storedEmail === null) {
+    if (
+      storedUsername === null ||
+      storedEmail === null ||
+      Object.keys(userObject).length === 0
+    ) {
       return "Landing";
     } else {
       return "Tabs";

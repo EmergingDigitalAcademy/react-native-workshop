@@ -1,7 +1,14 @@
 [
-    {
-      "id": 1,
-      "username": "mason",
-      "email": "mason.leonhart@gmail.com"
-    }
+  {
+    "id": 1,
+    "username": "Obi-wan Kenobi",
+    "email": "obk@emergingprairie.com",
+    "profileImage": "https://www.denofgeek.com/wp-content/uploads/2019/08/star-wars-obi-wan-kenobi-1-scaled.jpg?fit=2560%2C1707"
+  },
+  {
+    "id": 2,
+    "username": "General Grevious",
+    "email": "gravygrevious@emergingprairie.com",
+    "profileImage": "https://www.sideshow.com/wp/wp-content/uploads/2021/12/General-Grievous-Lightsabers.jpg"
+  }
   ]
