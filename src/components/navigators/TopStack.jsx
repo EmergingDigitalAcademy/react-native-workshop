@@ -1,19 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
 
 import { Image } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 
 import edaLogoPurple from "../../../assets/eda-icon-purple.png";
 
 import Landing from "../screens/TopStack/Landing";
 import SignUp from "../screens/TopStack/SignUp";
 import TabStack from "./TabStack";
+import NewPost from "../screens/TopStack/NewPost";
 
 export default function TopStack({ userObject, storedEmail, storedUsername }) {
   const Stack = createNativeStackNavigator();
   const dispatch = useDispatch();
+  const myTheme = useTheme();
 
   // check if the user object is empty, if it isn't then dispatch
   // the user object to redux
@@ -64,6 +66,26 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Tabs" component={TabStack} />
+      <Stack.Screen
+        name="NewPost"
+        component={NewPost}
+        options={({ navigation }) => ({
+          headerTitle: () => <></>,
+          headerRight: () => (
+            <Button
+              mode="contained"
+              color={myTheme.colors.secondary}
+              labelStyle={{
+                fontSize: 16,
+                marginVertical: "10%"
+              }}
+              onPress={() => navigation.goBack()}
+            >
+              Post
+            </Button>
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 }
