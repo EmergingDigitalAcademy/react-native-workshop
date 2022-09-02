@@ -57,6 +57,9 @@ export default function App() {
 
   const getSecureStoreDetails = async () => {
     try {
+      // SecureStore.deleteItemAsync("username")
+      // SecureStore.deleteItemAsync("email")
+
       const usernameResponse = await SecureStore.getItemAsync("username");
       const emailResponse = await SecureStore.getItemAsync("email");
 
@@ -80,6 +83,10 @@ export default function App() {
     } catch (error) {
       console.log(error);
     }
+
+    setTimeout(() => {
+      setCredentialsLoaded(true);
+    }, 1000);
   };
 
   // Enables react-native-screens for better rendering optimization
