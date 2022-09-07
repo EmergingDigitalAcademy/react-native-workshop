@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { FAB, useTheme } from "react-native-paper";
 
@@ -7,9 +8,10 @@ import Home from "../screens/TabStack/Home";
 import Account from "../screens/TabStack/Account";
 import Settings from "../screens/TabStack/Settings";
 
-export default function TabStack({ navigation }) {
+export default function TabStack({ posts }) {
   const Stack = createBottomTabNavigator();
   const myTheme = useTheme();
+  const navigation = useNavigation();
 
   return (
     <>
@@ -21,7 +23,6 @@ export default function TabStack({ navigation }) {
       >
         <Stack.Screen
           name="Home"
-          component={Home}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
@@ -31,7 +32,9 @@ export default function TabStack({ navigation }) {
               />
             ),
           }}
-        />
+        >
+          {() => <Home posts={posts} />}
+        </Stack.Screen>
         <Stack.Screen
           name="Account"
           component={Account}
@@ -58,7 +61,12 @@ export default function TabStack({ navigation }) {
 
       <FAB
         icon="plus"
-        style={{ backgroundColor: myTheme.colors.secondary, position: "absolute", right: "5%", bottom: "12%" }}
+        style={{
+          backgroundColor: myTheme.colors.secondary,
+          position: "absolute",
+          right: "5%",
+          bottom: "12%",
+        }}
         onPress={() => navigation.navigate("NewPost")}
       />
     </>

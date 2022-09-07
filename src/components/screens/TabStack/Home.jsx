@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { Dimensions } from "react-native";
 
@@ -8,25 +8,11 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
-import axios from "axios";
-import SERVER_ADDRESS from "../../../constants/serverAddress";
-
-export default function Home() {
-  const [posts, setPosts] = useState([]);
+export default function Home({ posts }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
-
-  const retrievePosts = async () => {
-    const response = await axios.get(`${SERVER_ADDRESS}/post/fetch`);
-
-    setPosts(response.data.reverse());
-  };
-
-  useEffect(() => {
-    retrievePosts();
-  }, []);
 
   const PostComponent = ({ post }) => {
     const userObject = post.userId;

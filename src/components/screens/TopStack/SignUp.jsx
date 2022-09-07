@@ -5,17 +5,11 @@ import * as SecureStore from "expo-secure-store";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
-import {
-  Text,
-  TextInput,
-  useTheme,
-  Button,
-  Modal,
-  Portal,
-} from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { Text, TextInput, useTheme, Button } from "react-native-paper";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
+import LoadingModal from "../../../reused-components/LoadingModal";
 
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
@@ -29,26 +23,6 @@ export default function SignUp({ navigation }) {
     username: "",
     email: "",
   });
-
-  const LoadingModal = () => {
-    const containerStyle = {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    };
-
-    return (
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={() => {}}
-          contentContainerStyle={containerStyle}
-        >
-          <ActivityIndicator />
-        </Modal>
-      </Portal>
-    );
-  };
 
   const submit = async () => {
     try {
@@ -119,7 +93,7 @@ export default function SignUp({ navigation }) {
 
   return (
     <>
-      {visible && <LoadingModal />}
+      {visible && <LoadingModal visible={visible} />}
 
       <SafeAreaView
         edges={["bottom", "left", "right"]}
@@ -150,7 +124,7 @@ export default function SignUp({ navigation }) {
           <View
             style={{
               borderTopColor: myTheme.colors.disabled,
-              borderTopWidth: .25,
+              borderTopWidth: 0.25,
               margin: "10%",
             }}
           />
