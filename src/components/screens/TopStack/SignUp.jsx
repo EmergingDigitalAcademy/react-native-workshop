@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -23,7 +22,6 @@ import SERVER_ADDRESS from "../../../constants/serverAddress";
 export default function SignUp({ navigation, getSecureStoreDetails }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
-  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [newUser, setNewUser] = useState({
     username: "",
@@ -58,8 +56,6 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
         `${SERVER_ADDRESS}/user/add-user`,
         newUser
       );
-
-      dispatch({ type: "SET_USER_DETAILS", payload: response.data });
 
       await SecureStore.setItemAsync("username", newUser.username);
       await SecureStore.setItemAsync("email", newUser.email);
