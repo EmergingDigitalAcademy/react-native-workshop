@@ -97,16 +97,22 @@ router.post("/add-post", (req, res) => {
 router.put("/like-post/:id", (req, res) => {
   console.log("in like post");
   const userId = req.body.userId;
-  const postIndex = helpers.findIndexById(posts, req.params.id);
-  const alreadyLiked = posts[postIndex].userLikes.find(
+  const postIndex = helpers.findIndexByIdOrEmail(posts, req.params.id);
+  const userLikesArray = posts[postIndex].userLikes;
+  const alreadyLiked = userLikesArray.find(
     (likedId) => likedId === Number(userId)
   )
     ? true
     : false;
 
   if (alreadyLiked) {
-    console.log(alreadyLikedErrorMessage);
-    res.status(400).send(alreadyLikedErrorMessage);
+    const userIdIndexInUserLikes = userLikesArray.findIndex(
+      (id) => id === Number(userId)
+    );
+
+    userLikesArray.splice(userIdIndexInUserLikes, 1);
+
+    res.sendStatus(200);
   } else {
     if (!userId) {
       console.log(missingDataErrorMessage);
