@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { Dimensions } from "react-native";
+import { useSelector } from "react-redux";
 
 import { ScrollView, View, Pressable } from "react-native";
 import { Avatar, Text, useTheme } from "react-native-paper";
@@ -8,15 +9,42 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
+import axios from "axios";
+import SERVER_ADDRESS from "../../../constants/serverAddress";
+
 export default function Home({ posts }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
+  const userObject = useSelector((store) => store.userReducer.userDetails);
 
   const PostComponent = ({ post }) => {
-    const userObject = post.userId;
-    const [didUserLike, setDidUserLike] = useState(false);
+    const postAuthor = post.userId;
+    const [didUserLike, setDidUserLike] = useState(
+      post.userLikes.find((likedId) => likedId === Number(userObject.id))
+        ? true
+        : false
+    );
+
+    const [amountOfLikes, setAmountOfLikes] = useState(post.userLikes.length);
+
+    const handleLikePost = async () => {
+      setDidUserLike(!didUserLike);
+
+      !didUserLike
+        ? setAmountOfLikes(amountOfLikes + 1)
+        : setAmountOfLikes(amountOfLikes - 1);
+
+      try {
+        const response = await axios.put(
+          `${SERVER_ADDRESS}/post/like-post/${post.id}`,
+          { userId: userObject.id }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     return (
       <View
@@ -28,12 +56,12 @@ export default function Home({ posts }) {
           flexDirection: "row",
         }}
       >
-        {userObject.profileImage ? (
-          <Avatar.Image source={{ uri: userObject.profileImage }} />
+        {postAuthor.profileImage ? (
+          <Avatar.Image source={{ uri: postAuthor.profileImage }} />
         ) : (
           <Avatar.Text
             style={{ backgroundColor: myTheme.colors.accent }}
-            label={userObject.username[0]}
+            label={postAuthor.username[0]}
           />
         )}
         <View
@@ -49,16 +77,12 @@ export default function Home({ posts }) {
               fontSize: 18,
             }}
           >
-            {userObject.username}
+            {postAuthor.username}
           </Text>
           <Text style={{ fontSize: 16, marginBottom: "2.5%" }}>
             {post.text}
           </Text>
-          <Pressable
-            onPress={() => {
-              setDidUserLike(!didUserLike);
-            }}
-          >
+          <Pressable onPress={handleLikePost}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <MaterialCommunityIcons
                 name={didUserLike ? "heart" : "heart-outline"}
@@ -73,7 +97,7 @@ export default function Home({ posts }) {
                   fontFamily: "Montserrat-Medium",
                 }}
               >
-                123
+                {amountOfLikes}
               </Text>
             </View>
           </Pressable>

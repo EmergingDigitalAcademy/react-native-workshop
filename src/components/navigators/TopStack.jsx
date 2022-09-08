@@ -16,7 +16,12 @@ import SignUp from "../screens/TopStack/SignUp";
 import TabStack from "./TabStack";
 import NewPost from "../screens/TopStack/NewPost";
 
-export default function TopStack({ userObject, storedEmail, storedUsername }) {
+export default function TopStack({
+  userObject,
+  storedEmail,
+  storedUsername,
+  getSecureStoreDetails,
+}) {
   const Stack = createNativeStackNavigator();
   const dispatch = useDispatch();
   const myTheme = useTheme();
@@ -39,8 +44,8 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
   };
 
   useEffect(() => {
-    retrievePosts();
-  }, []);
+    Object.keys(userObject).length !== 0 && retrievePosts();
+  }, [userObject]);
 
   const handlePostSubmit = async () => {
     try {
@@ -106,7 +111,14 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
       })}
     >
       <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="SignUp">
+        {() => (
+          <SignUp
+            getSecureStoreDetails={getSecureStoreDetails}
+            navigation={navigation}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen name="Tabs">
         {() => <TabStack posts={posts} />}
       </Stack.Screen>

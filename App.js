@@ -78,8 +78,6 @@ export default function App() {
 
         setUserObject(userResponse.data);
       }
-
-      setCredentialsLoaded(true);
     } catch (error) {
       console.log(error);
     }
@@ -116,6 +114,7 @@ export default function App() {
                 userObject={userObject}
                 storedEmail={storedEmail}
                 storedUsername={storedUsername}
+                getSecureStoreDetails={getSecureStoreDetails}
               />
             </PaperProvider>
           </SafeAreaProvider>
