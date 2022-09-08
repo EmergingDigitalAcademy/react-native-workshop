@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
 
@@ -11,9 +12,15 @@ import Landing from "../screens/TopStack/Landing";
 import SignUp from "../screens/TopStack/SignUp";
 import Tabs from "../screens/TopStack/Tabs";
 
-export default function TopStack({ userObject, storedEmail, storedUsername }) {
+export default function TopStack({
+  userObject,
+  storedEmail,
+  storedUsername,
+  getSecureStoreDetails,
+}) {
   const Stack = createNativeStackNavigator();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   // check if the user object is empty, if it isn't then dispatch
   // the user object to redux
@@ -59,7 +66,14 @@ export default function TopStack({ userObject, storedEmail, storedUsername }) {
       })}
     >
       <Stack.Screen name="Landing" component={Landing} />
-      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="SignUp">
+        {() => (
+          <SignUp
+            getSecureStoreDetails={getSecureStoreDetails}
+            navigation={navigation}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen name="Tabs" component={Tabs} />
     </Stack.Navigator>
   );

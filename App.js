@@ -116,6 +116,7 @@ export default function App() {
                 userObject={userObject}
                 storedEmail={storedEmail}
                 storedUsername={storedUsername}
+                getSecureStoreDetails={getSecureStoreDetails}
               />
             </PaperProvider>
           </SafeAreaProvider>
