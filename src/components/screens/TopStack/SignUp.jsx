@@ -20,7 +20,7 @@ import EmptyStateView from "../../../reused-components/EmptyStateView";
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
 
-export default function SignUp({ navigation }) {
+export default function SignUp({ navigation, getSecureStoreDetails }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
   const dispatch = useDispatch();
@@ -63,6 +63,8 @@ export default function SignUp({ navigation }) {
 
       await SecureStore.setItemAsync("username", newUser.username);
       await SecureStore.setItemAsync("email", newUser.email);
+
+      getSecureStoreDetails();
 
       setNewUser({
         username: "",
