@@ -1,6 +1,5 @@
 import React from "react";
 import { useIsFocused } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,10 +8,9 @@ import { Text, TextInput, useTheme, Avatar } from "react-native-paper";
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 import LoadingModal from "../../../reused-components/LoadingModal";
 
-export default function NewPost({ newPostText, setNewPostText, visible }) {
+export default function NewPost({ newPostText, setNewPostText, visible, userObject }) {
   const isFocused = useIsFocused();
   const myTheme = useTheme();
-  const userObject = useSelector((store) => store.userReducer.userDetails);
 
   const styles = StyleSheet.create({
     safeAreaView: {
@@ -55,7 +53,8 @@ export default function NewPost({ newPostText, setNewPostText, visible }) {
       <TextInput
         multiline
         autoFocus
-        style={{  marginLeft: "10%"}}
+        scrollEnabled={false}
+        style={{  marginLeft: "10%", minHeight: "25%"}}
         theme={textInputTheme}
         value={newPostText}
         onChangeText={(text) => setNewPostText(text)}

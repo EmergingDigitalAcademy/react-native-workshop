@@ -8,7 +8,7 @@ import Home from "../screens/TabStack/Home";
 import Account from "../screens/TabStack/Account";
 import Settings from "../screens/TabStack/Settings";
 
-export default function TabStack({ posts }) {
+export default function TabStack({ posts, userObject }) {
   const Stack = createBottomTabNavigator();
   const myTheme = useTheme();
   const navigation = useNavigation();
@@ -33,7 +33,7 @@ export default function TabStack({ posts }) {
             ),
           }}
         >
-          {() => <Home posts={posts} />}
+          {() => <Home posts={posts} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen
           name="Account"
@@ -58,6 +58,9 @@ export default function TabStack({ posts }) {
           }}
         />
       </Stack.Navigator>
+
+      {/* Loading Floating Action Button in the navigator (outside of the navigator component)
+        so it loads on every screen in the tab stack*/}
 
       <FAB
         icon="plus"

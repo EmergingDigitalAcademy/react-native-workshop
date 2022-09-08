@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useDispatch } from "react-redux";
-
-import { Image } from "react-native";
-import { Button, useTheme } from "react-native-paper";
 
 import axios from "axios";
 import SERVER_ADDRESS from "../../constants/serverAddress";
+
+import { Image } from "react-native";
+import { Button, useTheme } from "react-native-paper";
 
 import edaLogoPurple from "../../../assets/eda-icon-purple.png";
 
@@ -23,19 +22,14 @@ export default function TopStack({
   getSecureStoreDetails,
 }) {
   const Stack = createNativeStackNavigator();
-  const dispatch = useDispatch();
   const myTheme = useTheme();
   const navigation = useNavigation();
   const [newPostText, setNewPostText] = useState("");
   const [visible, setVisible] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  // check if the user object is empty, if it isn't then dispatch
-  // the user object to redux
-
-  Object.keys(userObject).length !== 0 &&
-    dispatch({ type: "SET_USER_DETAILS", payload: userObject });
-  //
+  // Sends a call to the API to fetch all posts and sets the posts state
+  // to the returned data, but in reverse order so most recent shows first
 
   const retrievePosts = async () => {
     const response = await axios.get(`${SERVER_ADDRESS}/post/fetch`);
@@ -43,9 +37,15 @@ export default function TopStack({
     setPosts(response.data.reverse());
   };
 
+  // on page load, if the user object is not empty, retrieve all posts
+
   useEffect(() => {
     Object.keys(userObject).length !== 0 && retrievePosts();
   }, [userObject]);
+
+  // set the loading modal visibility to true and make an api call to add a post
+  // reset post text input and call the api to retrieve posts again.
+  // After 1 second, unmount the modal and navigate back to tabs,
 
   const handlePostSubmit = async () => {
     try {
@@ -91,6 +91,10 @@ export default function TopStack({
   return (
     <Stack.Navigator
       initialRouteName={routeSwitch()}
+      // screen options are options that affect every screen
+      // setting the left side of our header to show a cancel button
+      // if the screen is one that can navigate backwards
+      // set the title of the header to the EDA logo
       screenOptions={({ navigation, route }) => ({
         headerLeft: ({ ...props }) =>
           props.canGoBack &&
@@ -111,6 +115,9 @@ export default function TopStack({
       })}
     >
       <Stack.Screen name="Landing" component={Landing} />
+      {/* Declare a screen and call the component, need to do it this way
+      vs using the component attribute because I need to pass props down to
+      signup screen (and any other screen that follow this format) */}
       <Stack.Screen name="SignUp">
         {() => (
           <SignUp
@@ -120,10 +127,12 @@ export default function TopStack({
         )}
       </Stack.Screen>
       <Stack.Screen name="Tabs">
-        {() => <TabStack posts={posts} />}
+        {() => <TabStack posts={posts} userObject={userObject} />}
       </Stack.Screen>
       <Stack.Screen
         name="NewPost"
+        // options only for this screen, show no eda symbol in title
+        // and add a button to submit post in header
         options={{
           headerTitle: () => <></>,
           headerRight: () => (
@@ -147,6 +156,7 @@ export default function TopStack({
             newPostText={newPostText}
             setNewPostText={setNewPostText}
             visible={visible}
+            userObject={userObject}
           />
         )}
       </Stack.Screen>
