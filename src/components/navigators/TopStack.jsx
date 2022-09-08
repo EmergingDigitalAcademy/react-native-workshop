@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useDispatch } from "react-redux";
 
 import { Image } from "react-native";
 import { Button } from "react-native-paper";
@@ -19,15 +18,7 @@ export default function TopStack({
   getSecureStoreDetails,
 }) {
   const Stack = createNativeStackNavigator();
-  const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  // check if the user object is empty, if it isn't then dispatch
-  // the user object to redux
-
-  Object.keys(userObject).length !== 0 &&
-    dispatch({ type: "SET_USER_DETAILS", payload: userObject });
-  //
 
   // if either the stored username or email are null (no stored data)
   // send the user to the Landing screen, else send them to the app

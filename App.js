@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import { Provider as StoreProvider } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
@@ -25,17 +23,12 @@ import myFonts from "./src/constants/myFonts";
 
 import myTheme from "./src/constants/myTheme";
 
-// Redux
-
-import _rootReducer from "./src/redux/reducers/_root.reducer";
-
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [credentialsLoaded, setCredentialsLoaded] = useState(false);
   const [storedUsername, setStoredUsername] = useState(null);
   const [storedEmail, setStoredEmail] = useState(null);
   const [userObject, setUserObject] = useState({});
-  const store = createStore(_rootReducer, applyMiddleware());
 
   useEffect(() => {
     getSecureStoreDetails();
@@ -100,21 +93,19 @@ export default function App() {
     );
   } else {
     return (
-      <StoreProvider store={store}>
-        <NavigationContainer theme={myTheme}>
-          <SafeAreaProvider>
-            <PaperProvider theme={myTheme}>
-              <StatusBar style="light" animated={true} />
-              <TopStack
-                userObject={userObject}
-                storedEmail={storedEmail}
-                storedUsername={storedUsername}
-                getSecureStoreDetails={getSecureStoreDetails}
-              />
-            </PaperProvider>
-          </SafeAreaProvider>
-        </NavigationContainer>
-      </StoreProvider>
+      <NavigationContainer theme={myTheme}>
+        <SafeAreaProvider>
+          <PaperProvider theme={myTheme}>
+            <StatusBar style="light" animated={true} />
+            <TopStack
+              userObject={userObject}
+              storedEmail={storedEmail}
+              storedUsername={storedUsername}
+              getSecureStoreDetails={getSecureStoreDetails}
+            />
+          </PaperProvider>
+        </SafeAreaProvider>
+      </NavigationContainer>
     );
   }
 }
