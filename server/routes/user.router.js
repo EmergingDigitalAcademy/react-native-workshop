@@ -51,7 +51,7 @@ router.post("/add-user", (req, res) => {
     res.status(400).send(missingDataErrorMessage);
   } else {
     numberOfUsers++;
-    users.push({ id: numberOfUsers, username, email });
+    users.push({ id: numberOfUsers, profileImage: "", username, email });
     res.status(201).send(users[users.length - 1]);
   }
 });

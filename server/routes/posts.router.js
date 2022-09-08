@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const posts = require("../modules/posts.json");
+const users = require("../modules/users.json");
 const helpers = require("../modules/helpers");
 
 // Used to track the post ID so no post has the same ID as another post, even if there are deleted posts
@@ -19,8 +20,19 @@ const alreadyLikedErrorMessage = "post has already been liked by user";
 
 router.get("/fetch", (req, res) => {
   console.log("in fetch all posts");
+  const updatedPosts = [];
 
-  res.status(200).send(posts);
+  for (const post of posts) {
+    for (const user of users) {
+      if (user.id === post.userId) {
+        updatedPosts.push({ ...post, userId: user });
+
+        break;
+      }
+    }
+  }
+
+  res.status(200).send(updatedPosts);
 });
 
 // Get all posts of user by userId
@@ -85,16 +97,22 @@ router.post("/add-post", (req, res) => {
 router.put("/like-post/:id", (req, res) => {
   console.log("in like post");
   const userId = req.body.userId;
-  const postIndex = helpers.findIndexById(posts, req.params.id);
-  const alreadyLiked = posts[postIndex].userLikes.find(
+  const postIndex = helpers.findIndexByIdOrEmail(posts, req.params.id);
+  const userLikesArray = posts[postIndex].userLikes;
+  const alreadyLiked = userLikesArray.find(
     (likedId) => likedId === Number(userId)
   )
     ? true
     : false;
 
   if (alreadyLiked) {
-    console.log(alreadyLikedErrorMessage);
-    res.status(400).send(alreadyLikedErrorMessage);
+    const userIdIndexInUserLikes = userLikesArray.findIndex(
+      (id) => id === Number(userId)
+    );
+
+    userLikesArray.splice(userIdIndexInUserLikes, 1);
+
+    res.sendStatus(200);
   } else {
     if (!userId) {
       console.log(missingDataErrorMessage);
