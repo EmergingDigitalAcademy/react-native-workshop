@@ -48,6 +48,11 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
     );
   };
 
+  // set the visibilty of the loading modal to true, add the user to the server and set
+  // the username and email data in the metal. retrive the data that was just set
+  // so we can navigate to the inside of the app
+  // reset the user input, hide modal, and navigate to the tabs screen
+
   const submit = async () => {
     try {
       setVisible(true);
@@ -117,12 +122,16 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
 
   return (
     <>
+    {/* modals always render but are either hidden or shown. If we define the modal to only
+    render when we want it to, we can save resources */}
       {visible && <LoadingModal />}
 
       <SafeAreaView
         edges={["bottom", "left", "right"]}
         style={styles.safeAreaView}
       >
+        {/* keyboard aware scroll view is a special component that automatically
+        scrolls your screen if your keyboard is covering the inputs */}
         <KeyboardAwareScrollView>
           <View>
             <Text style={styles.text}>Create your account</Text>
