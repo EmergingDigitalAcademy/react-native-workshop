@@ -21,9 +21,9 @@ export default function TopStack({
   storedUsername,
   getSecureStoreDetails,
 }) {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator(); // Initialize react navigation top tavigator
+  const navigation = useNavigation(); // initialize the useNavigation hook to navigate between screens
   const myTheme = useTheme();
-  const navigation = useNavigation();
   const [newPostText, setNewPostText] = useState("");
   const [visible, setVisible] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -33,8 +33,6 @@ export default function TopStack({
 
   const retrievePosts = async () => {
     const response = await axios.get(`${SERVER_ADDRESS}/post/fetch`);
-  const Stack = createNativeStackNavigator(); // Initialize react navigation top tavigator
-  const navigation = useNavigation(); // initialize the useNavigation hook to navigate between screens
 
     setPosts(response.data.reverse());
   };
@@ -94,7 +92,9 @@ export default function TopStack({
     <Stack.Navigator
       initialRouteName={routeSwitch()} // screen to show when navigator loads
       // screen options are options that affect every screen within the navigator
-      screenOptions={({ navigation }) => ({
+      // importing the navigation and route objects to navigate and check route
+      // config for our button
+      screenOptions={({ navigation, route }) => ({
         // headerLeft defines an element to display in the left side of the header
         // props.canGoBack determines if you're allowed to navigate backwards
         headerLeft: ({ ...props }) =>

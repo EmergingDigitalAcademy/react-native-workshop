@@ -17,13 +17,14 @@ export default function TabStack({ posts, userObject }) {
     <>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: false,
+          headerShown: false, // hide the header from the tab navigator as we have the header from the topstack still showing
+          tabBarShowLabel: false, // hide the label on tab bar so we just see icons
         }}
       >
         <Stack.Screen
           name="Home"
           options={{
+            // defining the icon for the screen in tabBarIcon
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="home-variant"

@@ -23,6 +23,8 @@ export default function Home({ posts, userObject }) {
 
   return (
     <ScrollView>
+      {/* check if there are items in the posts array. if there are, 
+      map over the posts array and render a post component for each post */}
       {posts.length !== 0 &&
         posts.map((post) => (
           <PostComponent key={post.id} post={post} userObject={userObject} />
