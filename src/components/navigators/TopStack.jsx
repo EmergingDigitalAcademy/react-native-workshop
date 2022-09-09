@@ -33,6 +33,8 @@ export default function TopStack({
 
   const retrievePosts = async () => {
     const response = await axios.get(`${SERVER_ADDRESS}/post/fetch`);
+  const Stack = createNativeStackNavigator(); // Initialize react navigation top tavigator
+  const navigation = useNavigation(); // initialize the useNavigation hook to navigate between screens
 
     setPosts(response.data.reverse());
   };
@@ -90,17 +92,17 @@ export default function TopStack({
 
   return (
     <Stack.Navigator
-      initialRouteName={routeSwitch()}
-      // screen options are options that affect every screen
-      // setting the left side of our header to show a cancel button
-      // if the screen is one that can navigate backwards
-      // set the title of the header to the EDA logo
-      screenOptions={({ navigation, route }) => ({
+      initialRouteName={routeSwitch()} // screen to show when navigator loads
+      // screen options are options that affect every screen within the navigator
+      screenOptions={({ navigation }) => ({
+        // headerLeft defines an element to display in the left side of the header
+        // props.canGoBack determines if you're allowed to navigate backwards
         headerLeft: ({ ...props }) =>
           props.canGoBack &&
           route.name !== "Tabs" && (
             <Button onPress={() => navigation.goBack()}>Cancel</Button>
           ),
+          // headerTitle is being set tot he EDA logo
         headerTitle: () => (
           <Image
             resizeMode="cover"
@@ -114,10 +116,12 @@ export default function TopStack({
         ),
       })}
     >
+      {/* initialize a screen within our navigator, it has the route name of Landing
+      and is using the Landing component */}
       <Stack.Screen name="Landing" component={Landing} />
-      {/* Declare a screen and call the component, need to do it this way
-      vs using the component attribute because I need to pass props down to
-      signup screen (and any other screen that follow this format) */}
+      {/* Same thing is happening in signup as it is in Landing, except rather than
+      defining a component to call like in Landing, I am manually calling my component as 
+      a child of <Stack.Screen> component so I can pass props down */}
       <Stack.Screen name="SignUp">
         {() => (
           <SignUp
