@@ -6,18 +6,21 @@ import { Text } from "react-native-paper";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
-export default function Tabs() {
+export default function Settings() {
   const isFocused = useIsFocused();
 
   // renders EmptyStateView if the screen is not in focuse to save resources
+  // setTimeout to preserve the screen as navigation is happening so the data doesn't disappear
 
   if (!isFocused) {
-    return <EmptyStateView />;
+    setTimeout(() => {
+      return <EmptyStateView />;
+    }, 100);
   }
 
   return (
     <SafeAreaView edges={["bottom", "left", "right"]}>
-      <Text>Home Screen</Text>
+      <Text>Settings Screen</Text>
     </SafeAreaView>
   );
 }

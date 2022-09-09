@@ -4,17 +4,11 @@ import * as SecureStore from "expo-secure-store";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
-import {
-  Text,
-  TextInput,
-  useTheme,
-  Button,
-  Modal,
-  Portal,
-} from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { Text, TextInput, useTheme, Button } from "react-native-paper";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
+import LoadingModal from "../../../reused-components/LoadingModal";
 
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
@@ -27,26 +21,6 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
     username: "",
     email: "",
   });
-
-  const LoadingModal = () => {
-    const containerStyle = {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    };
-
-    return (
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={() => {}}
-          contentContainerStyle={containerStyle}
-        >
-          <ActivityIndicator />
-        </Modal>
-      </Portal>
-    );
-  };
 
   // set the visibilty of the loading modal to true, add the user to the server and set
   // the username and email data in the metal. retrive the data that was just set
@@ -112,6 +86,7 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
   };
 
   // renders EmptyStateView if the screen is not in focuse to save resources
+  // setTimeout to preserve the screen as navigation is happening so the data doesn't disappear
 
   if (!isFocused) {
     return <EmptyStateView />;
@@ -119,9 +94,9 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
 
   return (
     <>
-    {/* modals always render but are either hidden or shown. If we define the modal to only
+      {visible && <LoadingModal visible={visible} />}
+      {/* modals always render but are either hidden or shown. If we define the modal to only
     render when we want it to, we can save resources */}
-      {visible && <LoadingModal />}
 
       <SafeAreaView
         edges={["bottom", "left", "right"]}
@@ -154,7 +129,7 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
           <View
             style={{
               borderTopColor: myTheme.colors.disabled,
-              borderTopWidth: 1,
+              borderTopWidth: 0.25,
               margin: "10%",
             }}
           />

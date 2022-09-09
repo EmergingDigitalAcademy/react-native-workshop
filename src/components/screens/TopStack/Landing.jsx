@@ -44,9 +44,12 @@ export default function Landing({ navigation }) {
   });
 
   // renders EmptyStateView if the screen is not in focuse to save resources
+  // setTimeout to preserve the screen as navigation is happening so the data doesn't disappear
 
   if (!isFocused) {
-    return <EmptyStateView />;
+    setTimeout(() => {
+      return <EmptyStateView />;
+    }, 100);
   }
 
   return (
