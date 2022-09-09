@@ -17,8 +17,8 @@ export default function TopStack({
   storedUsername,
   getSecureStoreDetails,
 }) {
-  const Stack = createNativeStackNavigator();
-  const navigation = useNavigation();
+  const Stack = createNativeStackNavigator(); // Initialize react navigation top tavigator
+  const navigation = useNavigation(); // initialize the useNavigation hook to navigate between screens
 
   // if either the stored username or email are null (no stored data)
   // send the user to the Landing screen, else send them to the app
@@ -33,12 +33,16 @@ export default function TopStack({
 
   return (
     <Stack.Navigator
-      initialRouteName={routeSwitch()}
+      initialRouteName={routeSwitch()} // screen to show when navigator loads
+      // screen options are options that affect every screen within the navigator
       screenOptions={({ navigation }) => ({
+        // headerLeft defines an element to display in the left side of the header
+        // props.canGoBack determines if you're allowed to navigate backwards
         headerLeft: ({ ...props }) =>
           props.canGoBack && (
             <Button onPress={() => navigation.goBack()}>Cancel</Button>
           ),
+          // headerTitle is being set tot he EDA logo
         headerTitle: () => (
           <Image
             resizeMode="cover"
@@ -52,7 +56,12 @@ export default function TopStack({
         ),
       })}
     >
+      {/* initialize a screen within our navigator, it has the route name of Landing
+      and is using the Landing component */}
       <Stack.Screen name="Landing" component={Landing} />
+      {/* Same thing is happening in signup as it is in Landing, except rather than
+      defining a component to call like in Landing, I am manually calling my component as 
+      a child of <Stack.Screen> component so I can pass props down */}
       <Stack.Screen name="SignUp">
         {() => (
           <SignUp

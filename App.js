@@ -45,7 +45,7 @@ export default function App() {
   // Grab the stored user credentials from the device securely stored data
   // set the set stored username and email state to the response of the async functions
   // if all credentials come back (user has been created or has logged in)
-  // grab the user data from the server and store user object in redux
+  // grab the user data from the server and store user object in local state
   // (set timeout to prevent "flash" of information, I want to give data time to update
 
   const getSecureStoreDetails = async () => {
@@ -68,11 +68,13 @@ export default function App() {
 
         setUserObject(userResponse.data);
       }
-
-      setCredentialsLoaded(true);
     } catch (error) {
       console.log(error);
     }
+
+    setTimeout(() => {
+      setCredentialsLoaded(true);
+    }, 1000);
   };
 
   // Enables react-native-screens for better rendering optimization
@@ -86,17 +88,23 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <ImageBackground
           style={{ width: "100%", height: "100%" }}
-          resizeMode="contain"
+          resizeMode="contain" //resizeMode: "Determines how to resize the image when the frame doesn't match the raw image dimensions."
           source={SplashImage}
         />
       </View>
     );
   } else {
     return (
+      // Navigation container is our wrapper from react-navigation, provides all routes
+      // with the route and screen prop
       <NavigationContainer theme={myTheme}>
+        {/* safeAreaProvider is the wrapper that determines the safe area insets for our app */}
         <SafeAreaProvider>
+          {/* paper provider is the styling wrapper from react-native-paper */}
           <PaperProvider theme={myTheme}>
+            {/* status bar is the time / celular display on the top of the phone screen */}
             <StatusBar style="light" animated={true} />
+            {/* Top stack is our top navigation component */}
             <TopStack
               userObject={userObject}
               storedEmail={storedEmail}

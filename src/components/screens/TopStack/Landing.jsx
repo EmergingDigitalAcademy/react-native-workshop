@@ -8,8 +8,11 @@ import { Button, Text, useTheme } from "react-native-paper";
 import EmptyStateView from "../../../reused-components/EmptyStateView";
 
 export default function Landing({ navigation }) {
-  const isFocused = useIsFocused();
-  const myTheme = useTheme();
+  const isFocused = useIsFocused(); // is focused will either be true or false depending on if the screen is in focus or not
+  const myTheme = useTheme(); // initialzing myTheme useing useTheme
+
+  // No CSS in react-native! we have to define our styles in a StyleSheet object
+  // *most* CSS properties transfer over, but not all
 
   const styles = StyleSheet.create({
     safeAreaView: {
@@ -49,9 +52,14 @@ export default function Landing({ navigation }) {
   return (
     <SafeAreaView
       style={styles.safeAreaView}
-      edges={["bottom", "left", "right"]}
+      edges={["bottom", "left", "right"]} // edges determines which safe area insets are available
+      // I am using all edges but top because I have a header from the navigator
+      // that already pushes content past the required safearea
     >
+      {/* Regular views in react native are not scrollable, have to import a special view */}
       <ScrollView contentContainerStyle={styles.contentWrapper}>
+        {/* content container style allows you to adjust the styleing of the content wrapper */}
+        {/* regular style attribute doesn't always accept all style options */}
         <Text style={styles.text}>
           See what's happening in the world right now.
         </Text>
