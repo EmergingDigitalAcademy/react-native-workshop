@@ -51,8 +51,75 @@ router.post("/add-user", (req, res) => {
     res.status(400).send(missingDataErrorMessage);
   } else {
     numberOfUsers++;
-    users.push({ id: numberOfUsers, profileImage: "", username, email });
+    users.push({
+      id: numberOfUsers,
+      profileImage: "",
+      profileSpash: "",
+      following: [],
+      followers: [],
+      username,
+      email,
+    });
     res.status(201).send(users[users.length - 1]);
+  }
+});
+
+// Follow user
+// Grab the currentUserId (the user that is trying to follow) form the body and grab the
+// targetUserId (the user that is going to be followed) from the parameters
+// Find the index of each user in the global array of users
+// Grab the list of all users followed by the current user, and grab a list of
+// all users that are following the target user
+// Check if the current user is already following the target user
+// If they are, remove the targetUserId from the list of users that the current user is following
+// and remove the currentUserId from the list of users that are following the target user
+
+// If the current user is already following the target user, check if the required data is
+// in the request, if it isn't then error out, if it is then check if the indexes of the
+// users are both greater than -1 (meaning both users are found), if they are,
+// add the currentUserId to the target users list of followers, and add the 
+// targetUserId to the current users list of following, if they arent
+// then error out
+
+router.put("/follow-user/:targetProfileId", (req, res) => {
+  console.log("in follow user");
+  const currentUserId = req.body.userId;
+  const targetUserId = req.params.targetProfileId;
+  const currentUserIndex = helpers.findIndexByIdOrEmail(users, currentUserId);
+  const targetUserIndex = helpers.findIndexByIdOrEmail(users, targetUserId);
+  const currentUserFollowing = users[currentUserIndex].following;
+  const targetUserFollowers = users[targetUserIndex].followers;
+
+  const alreadyFollowing = currentUserFollowing.find(
+    (followingId) => followingId === Number(targetUserId)
+  )
+    ? true
+    : false;
+
+  if (alreadyFollowing) {
+    const currentUserIdIndexInTargetUserFollowers =
+      targetUserFollowers.findIndex((id) => id === Number(currentUserId));
+    const targetUserIdIndexInCurrentUserFollowing =
+      currentUserFollowing.findIndex((id) => id === Number(targetUserId));
+
+    currentUserFollowing.splice(targetUserIdIndexInCurrentUserFollowing, 1);
+    targetUserFollowers.splice(currentUserIdIndexInTargetUserFollowers, 1);
+
+    res.sendStatus(200);
+  } else {
+    if (!currentUserId || !targetUserId) {
+      console.log(missingDataErrorMessage);
+      res.status(400).send(missingDataErrorMessage);
+    } else {
+      if (currentUserIndex > -1 && targetUserIndex > -1) {
+        currentUserFollowing.push(Number(targetUserId));
+        targetUserFollowers.push(Number(currentUserId));
+        res.sendStatus(200);
+      } else {
+        console.log(noIndexErrorMessage);
+        res.status(404).send(noIndexErrorMessage);
+      }
+    }
   }
 });
 
