@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
@@ -11,6 +12,7 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 export default function PostComponent({ post, userObject }) {
   const postAuthor = post.userId;
   const myTheme = useTheme();
+  const navigation = useNavigation();
   // grabbing strict window dimensions becuase elements were ignoring padding
   // using the regular '%' padding (padding: "20%")
   const windowWidth = Dimensions.get("window").width;
@@ -80,17 +82,19 @@ export default function PostComponent({ post, userObject }) {
 
   return (
     <View style={styles.postWrapper}>
-      {/* check if the post is a user created post or an already stored server post
+      <Pressable onPress={() => navigation.navigate("Account", postAuthor)}>
+        {/* check if the post is a user created post or an already stored server post
       (users dont have profile images) and render an image avatar for predefined data 
       and a text avatar for the user */}
-      {postAuthor.profileImage ? (
-        <Avatar.Image source={{ uri: postAuthor.profileImage }} />
-      ) : (
-        <Avatar.Text
-          style={{ backgroundColor: myTheme.colors.accent }}
-          label={postAuthor.username[0]}
-        />
-      )}
+        {postAuthor.profileImage ? (
+          <Avatar.Image source={{ uri: postAuthor.profileImage }} />
+        ) : (
+          <Avatar.Text
+            style={{ backgroundColor: myTheme.colors.accent }}
+            label={postAuthor.username[0]}
+          />
+        )}
+      </Pressable>
       <View style={styles.postContentWrapper}>
         <Text style={styles.postAuthorName}>{postAuthor.username}</Text>
         <Text style={styles.postText}>{post.text}</Text>

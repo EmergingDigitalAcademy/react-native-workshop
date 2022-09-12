@@ -39,6 +39,16 @@ export default function TabStack({ posts, userObject }) {
         <Stack.Screen
           name="Account"
           component={Account}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              // Prevent default action (always override initial params with passed in params)
+              e.preventDefault();
+              
+              // When tabIcon is pressed, I want the userObject to always be sent to Account
+              // as a param
+              navigation.navigate('Account', userObject);
+            },
+          })}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
@@ -46,7 +56,7 @@ export default function TabStack({ posts, userObject }) {
                 color={color}
                 size={size}
               />
-            ),
+            )
           }}
         />
         <Stack.Screen
