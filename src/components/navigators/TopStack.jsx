@@ -98,7 +98,7 @@ export default function TopStack({
           route.name !== "Tabs" && (
             <Button onPress={() => navigation.goBack()}>Cancel</Button>
           ),
-          // headerTitle is being set tot he EDA logo
+        // headerTitle is being set tot he EDA logo
         headerTitle: () => (
           <Image
             resizeMode="cover"
