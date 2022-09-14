@@ -26,6 +26,9 @@ const postRouter = require("./routes/posts.router");
 app.use("/user", userRouter);
 app.use("/post", postRouter);
 
+
+console.log("hello")
+
 // Defines port based on if server is hosted or not, if it is not hosted and no PORT is listed in ENV, use port 5000
 
 const PORT = process.env.PORT || 5000;
