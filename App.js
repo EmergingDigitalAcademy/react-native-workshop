@@ -26,7 +26,6 @@ import myTheme from "./src/constants/myTheme";
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [credentialsLoaded, setCredentialsLoaded] = useState(false);
-  const [storedUsername, setStoredUsername] = useState(null);
   const [storedEmail, setStoredEmail] = useState(null);
   const [userObject, setUserObject] = useState({});
 
