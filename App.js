@@ -26,7 +26,6 @@ import myTheme from "./src/constants/myTheme";
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [credentialsLoaded, setCredentialsLoaded] = useState(false);
-  const [storedUsername, setStoredUsername] = useState(null);
   const [storedEmail, setStoredEmail] = useState(null);
   const [userObject, setUserObject] = useState({});
 
@@ -53,15 +52,11 @@ export default function App() {
       // SecureStore.deleteItemAsync("username")
       // SecureStore.deleteItemAsync("email")
 
-      const usernameResponse = await SecureStore.getItemAsync("username");
       const emailResponse = await SecureStore.getItemAsync("email");
 
-      setStoredUsername(usernameResponse);
       setStoredEmail(emailResponse);
 
       if (
-        usernameResponse &&
-        typeof usernameResponse !== "object" &&
         emailResponse &&
         typeof emailResponse !== "object"
       ) {
@@ -111,7 +106,6 @@ export default function App() {
             <TopStack
               userObject={userObject}
               storedEmail={storedEmail}
-              storedUsername={storedUsername}
               getSecureStoreDetails={getSecureStoreDetails}
             />
           </PaperProvider>
