@@ -14,7 +14,6 @@ const noPostsErrorMessage = "cannot find any posts at index";
 const missingDataErrorMessage = helpers.errorMessages.missingDataErrorMessage;
 const postTooLongErrorMessage = "post is over 250 characters, try again";
 const noIndexErrorMessage = helpers.errorMessages.noIndexErrorMessage;
-const alreadyLikedErrorMessage = "post has already been liked by user";
 
 // Get all posts
 
@@ -65,23 +64,24 @@ router.post("/add-post", (req, res) => {
   const text = req.body.text;
   const userId = req.body.userId;
 
+  if (!text || !userId) {
+    console.log(missingDataErrorMessage);
+    res.status(400).send(missingDataErrorMessage);
+    return;
+  }
+
   if (text.length > 250) {
     console.log(postTooLongErrorMessage);
     res.status(400).send(postTooLongErrorMessage);
   } else {
-    if (!text || !userId) {
-      console.log(missingDataErrorMessage);
-      res.status(400).send(missingDataErrorMessage);
-    } else {
-      numberOfPosts++;
-      posts.push({
-        id: numberOfPosts,
-        userLikes: [],
-        userId: Number(userId),
-        text,
-      });
-      res.status(201).send(posts[posts.length - 1]);
-    }
+    numberOfPosts++;
+    posts.push({
+      id: numberOfPosts,
+      userLikes: [],
+      userId: Number(userId),
+      text,
+    });
+    res.status(201).send(posts[posts.length - 1]);
   }
 });
 
@@ -97,7 +97,21 @@ router.post("/add-post", (req, res) => {
 router.put("/like-post/:id", (req, res) => {
   console.log("in like post");
   const userId = req.body.userId;
-  const postIndex = helpers.findIndexByIdOrEmail(posts, req.params.id);
+  const postId = req.params.id;
+
+  if (!userId || !postId) {
+    console.log(missingDataErrorMessage);
+    res.status(400).send(missingDataErrorMessage);
+    return;
+  }
+
+  const postIndex = helpers.findIndexByIdOrEmail(posts, postId);
+
+  if (postIndex === -1) {
+    console.log(noIndexErrorMessage);
+    res.status(404).send(noIndexErrorMessage);
+  }
+
   const userLikesArray = posts[postIndex].userLikes;
   const alreadyLiked = userLikesArray.find(
     (likedId) => likedId === Number(userId)
@@ -114,18 +128,8 @@ router.put("/like-post/:id", (req, res) => {
 
     res.sendStatus(200);
   } else {
-    if (!userId) {
-      console.log(missingDataErrorMessage);
-      res.status(400).send(missingDataErrorMessage);
-    } else {
-      if (postIndex > -1) {
-        posts[postIndex].userLikes.push(Number(userId));
-        res.sendStatus(200);
-      } else {
-        console.log(noIndexErrorMessage);
-        res.status(404).send(noIndexErrorMessage);
-      }
-    }
+    posts[postIndex].userLikes.push(Number(userId));
+    res.sendStatus(200);
   }
 });
 
