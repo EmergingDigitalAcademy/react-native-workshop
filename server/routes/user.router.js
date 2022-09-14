@@ -43,10 +43,10 @@ router.get("/fetch/:idOrEmail", (req, res) => {
 
 router.post("/add-user", (req, res) => {
   console.log("in add user");
-  const username = req.body.username;
+  const name = req.body.name;
   const email = req.body.email;
 
-  if (!username || !email) {
+  if (!name || !email) {
     console.log(missingDataErrorMessage);
     res.status(400).send(missingDataErrorMessage);
   } else {
@@ -57,35 +57,33 @@ router.post("/add-user", (req, res) => {
       profileSpash: "",
       following: [],
       followers: [],
-      username,
+      username: `@${name.toLowerCase().replace(/\s+/g, "")}`,
+      name,
       email,
     });
-    
+
     res.status(201).send(users[users.length - 1]);
   }
 });
 
 // Follow user
-// Grab the currentUserId (the user that is trying to follow) form the body and grab the
-// targetUserId (the user that is going to be followed) from the parameters
-// Find the index of each user in the global array of users
-// Grab the list of all users followed by the current user, and grab a list of
-// all users that are following the target user
-// Check if the current user is already following the target user
-// If they are, remove the targetUserId from the list of users that the current user is following
-// and remove the currentUserId from the list of users that are following the target user
-
-// If the current user is already following the target user, check if the required data is
-// in the request, if it isn't then error out, if it is then check if the indexes of the
-// users are both greater than -1 (meaning both users are found), if they are,
-// add the currentUserId to the target users list of followers, and add the
-// targetUserId to the current users list of following, if they arent
-// then error out
+// Grab the currentUserId (the user that is trying to follow somone) from the request body
+// and grab the targetUserId (the user that is being followed) from the request params
+// check if the userId's actually exist, if they dont, error out
+// find the currentUserIndex and the targetUserIndex of the of the two users in the user array
+// if either user aren't found in the user list, error out
+// grab the list of users that the current user is following and grab a list of users that
+// the target user is being followed by (both stored on the user object). Check if the current
+// user is already following the target user. If the current user is already following the
+// target user, splice currentUserId out of the targetUserFollowers and splice the
+// targetUserId out of the currentUserFollowing list.
+// If the user is not already following, push the targetUserId to the currentUserFollowing list
+// and pusht the currentUserId to the targetUserFollowers list
 
 router.put("/follow-user/:targetProfileId", (req, res) => {
   console.log("in follow user");
-  const currentUserId = req.body.userId;
-  const targetUserId = req.params.targetProfileId;
+  const currentUserId = req.body.userId; // could wrap in Number() here to save time later
+  const targetUserId = req.params.targetProfileId; // could wrap in Number() here to save time later
 
   if (!currentUserId || !targetUserId) {
     console.log(missingDataErrorMessage);
@@ -94,20 +92,28 @@ router.put("/follow-user/:targetProfileId", (req, res) => {
 
   const currentUserIndex = helpers.findIndexByIdOrEmail(users, currentUserId);
   const targetUserIndex = helpers.findIndexByIdOrEmail(users, targetUserId);
+
+  if (currentUserIndex === -1 || targetUserIndex === -1) {
+    console.log(noIndexErrorMessage);
+    res.status(404).send(noIndexErrorMessage);
+  }
+
   const currentUserFollowing = users[currentUserIndex].following;
   const targetUserFollowers = users[targetUserIndex].followers;
   const alreadyFollowing = currentUserFollowing.find(
     (followingId) => followingId === Number(targetUserId)
   )
     ? true
-    : false;
-
-  if (currentUserIndex === -1 && targetUserIndex === -1) {
-    console.log(noIndexErrorMessage);
-    res.status(404).send(noIndexErrorMessage);
-  }
+    : false; // can drop these two lines if you want
 
   if (alreadyFollowing) {
+    // potentially could combine these:
+    // currentUserFollowing.splice(
+    //   currentUserFollowing.findIndex((id) => id === (targetUserId)
+    // , 1)
+    // or... could just use filter (which doesnt modify inline)
+    // currentUserFollowing = currentUserFollowing.filter(u => u !== targetUserId);
+
     const currentUserIdIndexInTargetUserFollowers =
       targetUserFollowers.findIndex((id) => id === Number(currentUserId));
     const targetUserIdIndexInCurrentUserFollowing =
@@ -135,19 +141,20 @@ router.put("/update-user/:id", (req, res) => {
   const updatedUser = req.body;
   const username = req.body.username;
   const email = req.body.email;
-  const userIndex = helpers.findIndexByIdOrEmail(users, req.params.id);
 
   if (!username || !email) {
     console.log(missingDataErrorMessage);
     res.status(400).send(missingDataErrorMessage);
+  }
+
+  const userIndex = helpers.findIndexByIdOrEmail(users, req.params.id);
+
+  if (userIndex > -1) {
+    users[userIndex] = { ...users[userIndex], ...updatedUser };
+    res.status(200).send(users[userIndex]);
   } else {
-    if (userIndex > -1) {
-      users[userIndex] = { ...users[userIndex], ...updatedUser };
-      res.status(200).send(users[userIndex]);
-    } else {
-      console.log(noIndexErrorMessage);
-      res.status(404).send(noIndexErrorMessage);
-    }
+    console.log(noIndexErrorMessage);
+    res.status(404).send(noIndexErrorMessage);
   }
 });
 
