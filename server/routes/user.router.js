@@ -54,10 +54,11 @@ router.post("/add-user", (req, res) => {
     users.push({
       id: numberOfUsers,
       profileImage: "",
-      profileSpash: "",
+      profileSplash: "",
+      bio: "",
       following: [],
       followers: [],
-      username: `@${name.toLowerCase().replace(/\s+/g, "")}`,
+      username: `${name.replace(/\s+/g, "")}`,
       name,
       email,
     });
@@ -88,6 +89,7 @@ router.put("/follow-user/:targetProfileId", (req, res) => {
   if (!currentUserId || !targetUserId) {
     console.log(missingDataErrorMessage);
     res.status(400).send(missingDataErrorMessage);
+    return;
   }
 
   const currentUserIndex = helpers.findIndexByIdOrEmail(users, currentUserId);
@@ -96,6 +98,7 @@ router.put("/follow-user/:targetProfileId", (req, res) => {
   if (currentUserIndex === -1 || targetUserIndex === -1) {
     console.log(noIndexErrorMessage);
     res.status(404).send(noIndexErrorMessage);
+    return;
   }
 
   const currentUserFollowing = users[currentUserIndex].following;
@@ -140,11 +143,15 @@ router.put("/update-user/:id", (req, res) => {
   console.log("in update user");
   const updatedUser = req.body;
   const username = req.body.username;
-  const email = req.body.email;
+  const name = req.body.name;
+  const profileImage = req.body.profileImage;
+  const profileSplash = req.body.profileSplash;
+  const bio = req.body.bio;
 
-  if (!username || !email) {
+  if (!username || !name || !profileImage || !profileSplash || !bio) {
     console.log(missingDataErrorMessage);
     res.status(400).send(missingDataErrorMessage);
+    return;
   }
 
   const userIndex = helpers.findIndexByIdOrEmail(users, req.params.id);

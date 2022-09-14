@@ -67,6 +67,7 @@ router.post("/add-post", (req, res) => {
   if (!text || !userId) {
     console.log(missingDataErrorMessage);
     res.status(400).send(missingDataErrorMessage);
+    return;
   }
 
   if (text.length > 250) {
@@ -101,6 +102,7 @@ router.put("/like-post/:id", (req, res) => {
   if (!userId || !postId) {
     console.log(missingDataErrorMessage);
     res.status(400).send(missingDataErrorMessage);
+    return;
   }
 
   const postIndex = helpers.findIndexByIdOrEmail(posts, postId);
