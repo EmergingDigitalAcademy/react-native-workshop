@@ -60,6 +60,7 @@ router.post("/add-user", (req, res) => {
       username,
       email,
     });
+    
     res.status(201).send(users[users.length - 1]);
   }
 });
@@ -77,7 +78,7 @@ router.post("/add-user", (req, res) => {
 // If the current user is already following the target user, check if the required data is
 // in the request, if it isn't then error out, if it is then check if the indexes of the
 // users are both greater than -1 (meaning both users are found), if they are,
-// add the currentUserId to the target users list of followers, and add the 
+// add the currentUserId to the target users list of followers, and add the
 // targetUserId to the current users list of following, if they arent
 // then error out
 
@@ -85,16 +86,26 @@ router.put("/follow-user/:targetProfileId", (req, res) => {
   console.log("in follow user");
   const currentUserId = req.body.userId;
   const targetUserId = req.params.targetProfileId;
+
+  if (!currentUserId || !targetUserId) {
+    console.log(missingDataErrorMessage);
+    res.status(400).send(missingDataErrorMessage);
+  }
+
   const currentUserIndex = helpers.findIndexByIdOrEmail(users, currentUserId);
   const targetUserIndex = helpers.findIndexByIdOrEmail(users, targetUserId);
   const currentUserFollowing = users[currentUserIndex].following;
   const targetUserFollowers = users[targetUserIndex].followers;
-
   const alreadyFollowing = currentUserFollowing.find(
     (followingId) => followingId === Number(targetUserId)
   )
     ? true
     : false;
+
+  if (currentUserIndex === -1 && targetUserIndex === -1) {
+    console.log(noIndexErrorMessage);
+    res.status(404).send(noIndexErrorMessage);
+  }
 
   if (alreadyFollowing) {
     const currentUserIdIndexInTargetUserFollowers =
@@ -107,19 +118,9 @@ router.put("/follow-user/:targetProfileId", (req, res) => {
 
     res.sendStatus(200);
   } else {
-    if (!currentUserId || !targetUserId) {
-      console.log(missingDataErrorMessage);
-      res.status(400).send(missingDataErrorMessage);
-    } else {
-      if (currentUserIndex > -1 && targetUserIndex > -1) {
-        currentUserFollowing.push(Number(targetUserId));
-        targetUserFollowers.push(Number(currentUserId));
-        res.sendStatus(200);
-      } else {
-        console.log(noIndexErrorMessage);
-        res.status(404).send(noIndexErrorMessage);
-      }
-    }
+    currentUserFollowing.push(Number(targetUserId));
+    targetUserFollowers.push(Number(currentUserId));
+    res.sendStatus(200);
   }
 });
 

@@ -98,6 +98,12 @@ router.put("/like-post/:id", (req, res) => {
   console.log("in like post");
   const userId = req.body.userId;
   const postId = req.params.id;
+
+  if (!userId || !postId) {
+    console.log(missingDataErrorMessage);
+    res.status(400).send(missingDataErrorMessage);
+  }
+
   const postIndex = helpers.findIndexByIdOrEmail(posts, postId);
   const userLikesArray = posts[postIndex].userLikes;
   const alreadyLiked = userLikesArray.find(
@@ -105,6 +111,11 @@ router.put("/like-post/:id", (req, res) => {
   )
     ? true
     : false;
+
+  if (postIndex === -1) {
+    console.log(noIndexErrorMessage);
+    res.status(404).send(noIndexErrorMessage);
+  }
 
   if (alreadyLiked) {
     const userIdIndexInUserLikes = userLikesArray.findIndex(
@@ -115,18 +126,8 @@ router.put("/like-post/:id", (req, res) => {
 
     res.sendStatus(200);
   } else {
-    if (!userId || !postId) {
-      console.log(missingDataErrorMessage);
-      res.status(400).send(missingDataErrorMessage);
-    } else {
-      if (postIndex > -1) {
-        posts[postIndex].userLikes.push(Number(userId));
-        res.sendStatus(200);
-      } else {
-        console.log(noIndexErrorMessage);
-        res.status(404).send(noIndexErrorMessage);
-      }
-    }
+    posts[postIndex].userLikes.push(Number(userId));
+    res.sendStatus(200);
   }
 });
 
