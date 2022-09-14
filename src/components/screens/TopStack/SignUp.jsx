@@ -24,7 +24,7 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
   const myTheme = useTheme();
   const [visible, setVisible] = useState(false);
   const [newUser, setNewUser] = useState({
-    username: "",
+    name: "",
     email: "",
   });
 
@@ -49,7 +49,7 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
   };
 
   // set the visibilty of the loading modal to true, add the user to the server and set
-  // the username and email data in the metal. retrive the data that was just set
+  // the anme and email data in the metal. retrive the data that was just set
   // so we can navigate to the inside of the app
   // reset the user input, hide modal, and navigate to the tabs screen
 
@@ -62,13 +62,12 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
         newUser
       );
 
-      await SecureStore.setItemAsync("username", newUser.username);
       await SecureStore.setItemAsync("email", newUser.email);
 
       getSecureStoreDetails();
 
       setNewUser({
-        username: "",
+        name: "",
         email: "",
       });
 
@@ -137,11 +136,11 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
             <Text style={styles.text}>Create your account</Text>
             <TextInput
               label="Name"
-              value={newUser.username}
+              value={newUser.name}
               theme={textInputTheme}
               style={styles.textInput}
               onChangeText={(text) =>
-                setNewUser({ ...newUser, username: text })
+                setNewUser({ ...newUser, name: text })
               }
               on
             />

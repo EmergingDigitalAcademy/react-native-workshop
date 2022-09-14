@@ -14,18 +14,16 @@ import Tabs from "../screens/TopStack/Tabs";
 export default function TopStack({
   userObject,
   storedEmail,
-  storedUsername,
   getSecureStoreDetails,
 }) {
   const Stack = createNativeStackNavigator(); // Initialize react navigation top tavigator
   const navigation = useNavigation(); // initialize the useNavigation hook to navigate between screens
 
-  // if either the stored username or email are null (no stored data)
+  // if the stored email is null (no stored data)
   // send the user to the Landing screen, else send them to the app
 
   const routeSwitch = () => {
     if (
-      storedUsername === null ||
       storedEmail === null ||
       Object.keys(userObject).length === 0
     ) {
