@@ -23,7 +23,7 @@ export default function PostComponent({ post, userObject }) {
       : false
   );
 
-  // Set the didUserLike to the opposite of its current state to update the icon on the client
+  // Set didUserLike to the opposite of its current state to update the icon on the client
   // check if the user like is true or false and add or subtract a like depending on if the
   // post was already liked or not
   // send a request to the server to update the data
@@ -57,13 +57,21 @@ export default function PostComponent({ post, userObject }) {
       marginLeft: "2.5%",
       maxWidth: "80%",
     },
-    postAuthorName: {
+    postAuthorWrapper: {
+      flexDirection: "row",
+    },
+    postAuthorText: {
       fontFamily: "Montserrat-Medium",
-      marginBottom: "2.5%",
-      fontSize: 18,
+      marginBottom: "1%",
+      fontSize: 17,
+    },
+    postAuthorUsername: {
+      fontFamily: "Montserrat-Regular",
+      marginLeft: "2.5%",
+      color: myTheme.colors.disabled,
     },
     postText: {
-      fontSize: 16,
+      fontSize: 15,
       marginBottom: "2.5%",
     },
     likeButtonWrapper: {
@@ -92,7 +100,12 @@ export default function PostComponent({ post, userObject }) {
         />
       )}
       <View style={styles.postContentWrapper}>
-        <Text style={styles.postAuthorName}>{postAuthor.username}</Text>
+        <View style={styles.postAuthorWrapper}>
+          <Text style={styles.postAuthorText}>{postAuthor.name}</Text>
+          <Text style={[styles.postAuthorText, styles.postAuthorUsername]}>
+            @{postAuthor.username}
+          </Text>
+        </View>
         <Text style={styles.postText}>{post.text}</Text>
         <Pressable onPress={handleLikePost}>
           <View style={styles.likeButtonWrapper}>
