@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "username": "Obi-wan Kenobi",
-    "name": "bigBen",
+    "name": "Obi-wan Kenobi",
+    "username": "bigBen",
     "bio": "The Negotiator",
     "email": "obk@emergingprairie.com",
     "profileImage": "https://www.denofgeek.com/wp-content/uploads/2019/08/star-wars-obi-wan-kenobi-1-scaled.jpg?fit=2560%2C1707",
@@ -12,8 +12,8 @@
   },
   {
     "id": 2,
-    "username": "General Grevious",
-    "name": "gravyGrevious",
+    "name": "General Grevious",
+    "username": "gravyGrevious",
     "bio": "*Cough Cough*",
     "email": "gravygrevious@emergingprairie.com",
     "profileImage": "https://www.sideshow.com/wp/wp-content/uploads/2021/12/General-Grievous-Lightsabers.jpg",
