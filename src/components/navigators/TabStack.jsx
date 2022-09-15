@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { FAB, useTheme } from "react-native-paper";
+
+import EdaLogoHeader from "./EdaLogoHeader";
 
 import Home from "../screens/TabStack/Home";
 import Account from "../screens/TabStack/Account";
@@ -12,12 +14,22 @@ export default function TabStack({ posts, userObject }) {
   const Stack = createBottomTabNavigator();
   const myTheme = useTheme();
   const navigation = useNavigation();
+  const [currentTab, setCurrentTab] = useState("");
+  const currentNavigator = navigation.getState().routes[0];
+
+  useEffect(() => {
+    if (currentNavigator.state !== undefined) {
+      const currentRoute = currentNavigator.state;
+      setCurrentTab(currentRoute.routes[currentRoute.index].name);
+    }
+  }, [currentNavigator]);
 
   return (
     <>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false, // hide the header from the tab navigator as we have the header from the topstack still showing
+          headerTitle: () => <EdaLogoHeader />,
+          headerShown: currentTab === "Account" ? false : true,
           tabBarShowLabel: false, // hide the label on tab bar so we just see icons
         }}
       >
@@ -43,10 +55,10 @@ export default function TabStack({ posts, userObject }) {
             tabPress: (e) => {
               // Prevent default action (always override initial params with passed in params)
               e.preventDefault();
-              
+
               // When tabIcon is pressed, I want the userObject to always be sent to Account
               // as a param
-              navigation.navigate('Account', userObject);
+              navigation.navigate("Account", userObject);
             },
           })}
           options={{
@@ -56,7 +68,7 @@ export default function TabStack({ posts, userObject }) {
                 color={color}
                 size={size}
               />
-            )
+            ),
           }}
         />
         <Stack.Screen

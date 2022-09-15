@@ -5,10 +5,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
 import SERVER_ADDRESS from "../../constants/serverAddress";
 
-import { Image } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 
-import edaLogoPurple from "../../../assets/eda-icon-purple.png";
+import EdaLogoHeader from "./EdaLogoHeader";
 
 import Landing from "../screens/TopStack/Landing";
 import SignUp from "../screens/TopStack/SignUp";
@@ -69,15 +68,12 @@ export default function TopStack({
       console.log(error);
     }
   };
-  
+
   // if the stored email is null (no stored data)
   // send the user to the Landing screen, else send them to the app
 
   const routeSwitch = () => {
-    if (
-      storedEmail === null ||
-      Object.keys(userObject).length === 0
-    ) {
+    if (storedEmail === null || Object.keys(userObject).length === 0) {
       return "Landing";
     } else {
       return "Tabs";
@@ -98,18 +94,8 @@ export default function TopStack({
           route.name !== "Tabs" && (
             <Button onPress={() => navigation.goBack()}>Cancel</Button>
           ),
-        // headerTitle is being set tot he EDA logo
-        headerTitle: () => (
-          <Image
-            resizeMode="cover"
-            source={edaLogoPurple}
-            style={{
-              height: 40,
-              width: 40,
-              overflow: "visible",
-            }}
-          />
-        ),
+        // headerTitle is being set to the EDA logo
+        headerTitle: () => <EdaLogoHeader />,
       })}
     >
       {/* initialize a screen within our navigator, it has the route name of Landing
@@ -126,7 +112,7 @@ export default function TopStack({
           />
         )}
       </Stack.Screen>
-      <Stack.Screen name="Tabs">
+      <Stack.Screen name="Tabs" options={{ headerShown: false }}>
         {() => <TabStack posts={posts} userObject={userObject} />}
       </Stack.Screen>
       <Stack.Screen
