@@ -6,7 +6,7 @@
     "bio": "The Negotiator",
     "email": "obk@emergingprairie.com",
     "profileImage": "https://www.denofgeek.com/wp-content/uploads/2019/08/star-wars-obi-wan-kenobi-1-scaled.jpg?fit=2560%2C1707",
-    "profileSpash": "https://wallpaperaccess.com/full/2010502.jpg",
+    "profileSplash": "https://wallpaperaccess.com/full/2010502.jpg",
     "following": [5, 6, 8, 2, 10, 14],
     "followers": []
   },
@@ -17,7 +17,7 @@
     "bio": "*Cough Cough*",
     "email": "gravygrevious@emergingprairie.com",
     "profileImage": "https://www.sideshow.com/wp/wp-content/uploads/2021/12/General-Grievous-Lightsabers.jpg",
-    "profileSpash": "https://www.belloflostsouls.net/wp-content/uploads/2019/07/droid-army-star-wars-legion.jpg",
+    "profileSplash": "https://www.belloflostsouls.net/wp-content/uploads/2019/07/droid-army-star-wars-legion.jpg",
     "following": [],
     "followers": [4, 5, 1, 6, 7, 8]
   }
