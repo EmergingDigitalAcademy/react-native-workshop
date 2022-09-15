@@ -54,7 +54,7 @@ router.post("/add-user", (req, res) => {
     users.push({
       id: numberOfUsers,
       profileImage: "",
-      profileSplash: "",
+      profileSplash: "https://emergingacademy.org/wp-content/uploads/IMG-3411-scaled.jpg",
       bio: "",
       following: [],
       followers: [],
