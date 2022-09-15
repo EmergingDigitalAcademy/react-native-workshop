@@ -54,7 +54,6 @@ export default function TabStack({ posts, userObject }) {
         </Stack.Screen>
         <Stack.Screen
           name="Account"
-          component={Account}
           listeners={({ navigation }) => ({
             tabPress: (e) => {
               // Prevent default action (always override initial params with passed in params)
@@ -75,7 +74,9 @@ export default function TabStack({ posts, userObject }) {
               />
             ),
           }}
-        />
+        >
+          {() => <Account currentUserObject={userObject} />}
+        </Stack.Screen>
         <Stack.Screen
           name="Settings"
           component={Settings}
