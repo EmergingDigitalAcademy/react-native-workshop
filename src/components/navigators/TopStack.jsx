@@ -18,7 +18,6 @@ import NewPost from "../screens/TopStack/NewPost";
 export default function TopStack({
   userObject,
   storedEmail,
-  storedUsername,
   getSecureStoreDetails,
 }) {
   const Stack = createNativeStackNavigator(); // Initialize react navigation top tavigator
@@ -70,15 +69,12 @@ export default function TopStack({
       console.log(error);
     }
   };
-
-  // if either the stored username or email (data from the device) are null (no stored data),
-  // or if the userObject returned from the server is empty (no stored data on the server
-  // associated to the stored credentials) send the user to the Landing screen
-  // else send them to the app
+  
+  // if the stored email is null (no stored data)
+  // send the user to the Landing screen, else send them to the app
 
   const routeSwitch = () => {
     if (
-      storedUsername === null ||
       storedEmail === null ||
       Object.keys(userObject).length === 0
     ) {
