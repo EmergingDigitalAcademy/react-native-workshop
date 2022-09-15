@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useIsFocused, useRoute } from "@react-navigation/native";
 
-import { ScrollView } from "react-native";
+import { ScrollView, Image } from "react-native";
 import { Text } from "react-native-paper";
 
 import EmptyStateView from "../../../reused-components/EmptyStateView";
@@ -25,7 +25,11 @@ export default function Account() {
   }
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
+      <Image
+        source={{ uri: userObject.profileSplash }}
+        style={{ height: "25%", width: "100%" }}
+      />
       <Text>{userObject.email}</Text>
     </ScrollView>
   );

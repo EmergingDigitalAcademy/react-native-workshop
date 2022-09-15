@@ -15,14 +15,18 @@ export default function TabStack({ posts, userObject }) {
   const myTheme = useTheme();
   const navigation = useNavigation();
   const [currentTab, setCurrentTab] = useState("");
-  const currentNavigator = navigation.getState().routes[0];
+
+  const tabNavigatorIndex = navigation
+    .getState()
+    .routes.findIndex((screen) => screen.name === "Tabs");
+  const tabNavigatorState = navigation.getState().routes[tabNavigatorIndex];
 
   useEffect(() => {
-    if (currentNavigator.state !== undefined) {
-      const currentRoute = currentNavigator.state;
+    if (tabNavigatorState.state !== undefined) {
+      const currentRoute = tabNavigatorState.state;
       setCurrentTab(currentRoute.routes[currentRoute.index].name);
     }
-  }, [currentNavigator]);
+  }, [tabNavigatorState]);
 
   return (
     <>
