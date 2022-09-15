@@ -136,6 +136,7 @@ export default function SignUp({ navigation, getSecureStoreDetails }) {
             <Text style={styles.text}>Create your account</Text>
             <TextInput
               label="Name"
+              autoCapitalize="words"
               value={newUser.name}
               theme={textInputTheme}
               style={styles.textInput}
