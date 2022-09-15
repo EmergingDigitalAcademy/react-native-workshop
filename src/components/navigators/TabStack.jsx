@@ -66,6 +66,7 @@ export default function TabStack({ posts, userObject }) {
             },
           })}
           options={{
+            unmountOnBlur: "true",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="account"
