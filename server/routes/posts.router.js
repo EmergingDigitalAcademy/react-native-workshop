@@ -39,15 +39,26 @@ router.get("/fetch", (req, res) => {
 // Return a collection of posts from the user by ID or an error depending
 // On if there are posts by that user
 
-router.get("/fetch-user-posts/:userId", (req, res) => {
+router.get("/fetch/:userId", (req, res) => {
   console.log("in fetch posts by userId");
   const filteredPosts = posts.filter(
     (post) => post.userId === Number(req.params.userId)
   );
+  const updatedFilteredPosts = [];
 
-  if (filteredPosts.length > 0) {
+  for (const post of filteredPosts) {
+    for (const user of users) {
+      if (user.id === post.userId) {
+        updatedFilteredPosts.push({ ...post, userId: user });
+
+        break;
+      }
+    }
+  }
+
+  if (updatedFilteredPosts.length > 0) {
     // only return 200 if the user has posts
-    res.status(200).send(filteredPosts);
+    res.status(200).send(updatedFilteredPosts);
   } else {
     console.log(noPostsErrorMessage);
     res.status(404).send(noPostsErrorMessage);
