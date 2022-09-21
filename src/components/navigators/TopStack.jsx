@@ -131,8 +131,6 @@ export default function TopStack({
     </Button>
   );
 
-  console.log(userObject);
-
   return (
     <Stack.Navigator
       initialRouteName={routeSwitch()} // screen to show when navigator loads
