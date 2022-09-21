@@ -105,6 +105,7 @@ export default function App() {
             {/* Top stack is our top navigation component */}
             <TopStack
               userObject={userObject}
+              setUserObject={setUserObject}
               storedEmail={storedEmail}
               getSecureStoreDetails={getSecureStoreDetails}
             />

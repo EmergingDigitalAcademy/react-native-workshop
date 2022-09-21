@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useIsFocused, useRoute } from "@react-navigation/native";
 import { Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
@@ -15,6 +16,7 @@ export default function Account({ currentUserObject }) {
   const isFocused = useIsFocused();
   const route = useRoute();
   const myTheme = useTheme();
+  const navigation = useNavigation();
   const windowWidth = Dimensions.get("window").width;
   const [targetUserObject, setTargetUserObject] = useState({});
   const [posts, setPosts] = useState([]);
@@ -42,7 +44,7 @@ export default function Account({ currentUserObject }) {
 
     targetUserObject.followers !== undefined &&
       setAmmountOfFollowers(targetUserObject.followers.length);
-  }, [targetUserObject]);
+  }, [targetUserObject, currentUserObject]);
 
   const retrieveTargetUserPosts = async () => {
     const response = await axios.get(
@@ -94,11 +96,10 @@ export default function Account({ currentUserObject }) {
       marginRight: windowWidth * 0.05,
     },
     buttonLabelStyle: {
-      fontFamily: isTargetUserCurrentUser
-        ? "Montserrat-Bold"
-        : didCurrentUserFollowTargetUser
-        ? "Montserrat-Bold"
-        : "Montserrat-Medium",
+      fontFamily:
+        isTargetUserCurrentUser || didCurrentUserFollowTargetUser
+          ? "Montserrat-Bold"
+          : "Montserrat-Medium",
       fontSize: 12,
     },
     targetUserNameWrapper: {
@@ -171,20 +172,16 @@ export default function Account({ currentUserObject }) {
           <Button
             onPress={() =>
               isTargetUserCurrentUser
-                ? console.log("Hello")
+                ? navigation.navigate("EditProfile")
                 : handleFollowUser()
             }
             mode={
-              isTargetUserCurrentUser
-                ? "outlined"
-                : didCurrentUserFollowTargetUser
+              isTargetUserCurrentUser || didCurrentUserFollowTargetUser
                 ? "outlined"
                 : "contained"
             }
             color={
-              isTargetUserCurrentUser
-                ? "#ffffff"
-                : didCurrentUserFollowTargetUser
+              isTargetUserCurrentUser || didCurrentUserFollowTargetUser
                 ? "#ffffff"
                 : myTheme.colors.secondary
             }
