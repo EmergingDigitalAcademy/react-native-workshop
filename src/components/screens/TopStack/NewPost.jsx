@@ -34,7 +34,7 @@ export default function NewPost({
     },
     textInput: {
       marginLeft: "10%",
-      minHeight: "25%",
+      backgroundColor: "transparent",
     },
   });
 
