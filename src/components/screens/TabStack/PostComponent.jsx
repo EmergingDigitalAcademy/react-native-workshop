@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import axios from "axios";
 import SERVER_ADDRESS from "../../../constants/serverAddress";
@@ -11,6 +12,7 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 export default function PostComponent({ post, userObject }) {
   const postAuthor = post.userId;
   const myTheme = useTheme();
+  const navigation = useNavigation();
   // grabbing strict window dimensions becuase elements were ignoring padding
   // using the regular '%' padding (padding: "20%")
   const windowWidth = Dimensions.get("window").width;
@@ -49,9 +51,15 @@ export default function PostComponent({ post, userObject }) {
     postWrapper: {
       borderBottomWidth: 0.25,
       borderBottomColor: myTheme.colors.disabled,
-      paddingVertical: windowHeight * 0.015,
+      paddingVertical: windowHeight * 0.01,
       paddingHorizontal: windowWidth * 0.05,
       flexDirection: "row",
+    },
+    avatarWrapper: {
+      borderColor: "#121212",
+      borderWidth: 7.5,
+      borderRadius: 100,
+      alignSelf: "flex-start",
     },
     postContentWrapper: {
       marginLeft: "2.5%",
@@ -59,7 +67,8 @@ export default function PostComponent({ post, userObject }) {
     },
     postAuthorWrapper: {
       flexDirection: "row",
-      overflow: "hidden"
+      overflow: "hidden",
+      marginTop: "1%"
     },
     postAuthorText: {
       fontFamily: "Montserrat-Medium",
@@ -89,17 +98,21 @@ export default function PostComponent({ post, userObject }) {
 
   return (
     <View style={styles.postWrapper}>
-      {/* check if the post is a user created post or an already stored server post
+      <Pressable onPress={() => navigation.navigate("Account", postAuthor)}>
+        <View style={styles.avatarWrapper}>
+          {/* check if the post is a user created post or an already stored server post
       (users dont have profile images) and render an image avatar for predefined data 
       and a text avatar for the user */}
-      {postAuthor.profileImage ? (
-        <Avatar.Image source={{ uri: postAuthor.profileImage }} />
-      ) : (
-        <Avatar.Text
-          style={{ backgroundColor: myTheme.colors.accent }}
-          label={postAuthor.username[0]}
-        />
-      )}
+          {postAuthor.profileImage ? (
+            <Avatar.Image source={{ uri: postAuthor.profileImage }} />
+          ) : (
+            <Avatar.Text
+              style={{ backgroundColor: myTheme.colors.accent }}
+              label={postAuthor.username[0]}
+            />
+          )}
+        </View>
+      </Pressable>
       <View style={styles.postContentWrapper}>
         <View style={styles.postAuthorWrapper}>
           <Text style={styles.postAuthorText}>{postAuthor.name}</Text>
