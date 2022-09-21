@@ -68,7 +68,7 @@ export default function PostComponent({ post, userObject }) {
     postAuthorWrapper: {
       flexDirection: "row",
       overflow: "hidden",
-      marginTop: "1%"
+      marginTop: "1%",
     },
     postAuthorText: {
       fontFamily: "Montserrat-Medium",
