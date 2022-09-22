@@ -50,16 +50,10 @@ Please fork and clone this project and play around, use it as a starting point t
 - Landing page creation
 - Sign up functionality
 
-![checkpoint-1-landing](./assets/README-Screenshots/checkpoint-1-landing.png)
-
-![checkpoint-1-signup](./assets/README-Screenshots/checkpoint-1-signup.png)
-
 ### Checkpoint 2
 - Tab navigation setup
 - Home screen
 - Create new post
-
-![checkpoint-2-home](./assets/README-Screenshots/checkpoint-2-home.png)
 
 ### Checkpoint 3
 - Account screen
@@ -67,8 +61,6 @@ Please fork and clone this project and play around, use it as a starting point t
   - Other users
 - Settings
   - Logout button
-
-![checkpoint-3-account](./assets/README-Screenshots/checkpoint-3-account.png)
 
 ---
 
