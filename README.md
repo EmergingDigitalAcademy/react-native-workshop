@@ -76,7 +76,7 @@ Please fork and clone this project and play around, use it as a starting point t
 
 5. After installing all packages, run the command `$ expo start` to open the client development server, and `$ npm run server` to open the provided API
 
-6. To locally test your Expo application, scan the QR code that appeared in the terminal window that is running the Expo Server on your **mobile device** after downloading the **Expo Go App**, or click the `i` key on your keyboard in an **iOS simulator** on your **mac**
+6. To locally test your Expo application, scan the QR code that appeared in the terminal window that is running the Expo Server on your **mobile device** after downloading the **Expo Go App**, or click the `i` key on your keyboard to open an **iOS simulator** on your **mac**
 
 ---
 
