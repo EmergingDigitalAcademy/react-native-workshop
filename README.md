@@ -2,8 +2,6 @@
 
 ## Welcome!
 
-<br>
-
 Thank you for taking the time to check out our Intro to React Native Workshop. While this is a fairly large project, it is broken down into multiple checkpoints and is still in the process of being simplified into a smaller workshop format.
 
 All of the API code, routes, and data management have been provided for you. There is not database setup, rather all data is stored in memory and clears upon every server close.
@@ -12,17 +10,11 @@ Please fork and clone this project and play around, use it as a starting point t
 
 ---
 
-<br>
-
 ## Prerequisites
-
-<br>
 
 ### Text Editor
 
 [Visual Studio Code OSX Download](https://code.visualstudio.com/docs/?dv=osx)
-
-<br>
 
 ### Node.js (16.17 LTS Release recommended)
 [Node.js v16.17.0.pkg Download](https://nodejs.org/dist/v16.17.0/node-v16.17.0.pkg)
@@ -31,15 +23,11 @@ Please fork and clone this project and play around, use it as a starting point t
 
 > `$ brew install node@16`
 
-<br>
-
 ### Expo Command Line Interface
 
 [Expo Docs](https://docs.expo.dev)
 
 > `$ npm i -g expo-cli`
-
-<br>
 
 ### Expo Go Mobile Application
 
@@ -49,19 +37,13 @@ Please fork and clone this project and play around, use it as a starting point t
 
 [Google Play Store Link](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www)
 
-<br>
-
 ### Xcode 14 (Needed to Access iOS Simulators)
 
 [Apple Developer Web Link](https://developer.apple.com/xcode/)
 
 ---
 
-<br>
-
 ## Checkpoints
-
-<br>
 
 ### Checkpoint 1
 - Initial navigation setup
@@ -72,16 +54,12 @@ Please fork and clone this project and play around, use it as a starting point t
 
 ![checkpoint-1-signup](./assets/README-Screenshots/checkpoint-1-signup.png)
 
-<br>
-
 ### Checkpoint 2
 - Tab navigation setup
 - Home screen
 - Create new post
 
 ![checkpoint-2-home](./assets/README-Screenshots/checkpoint-2-home.png)
-
-<br>
 
 ### Checkpoint 3
 - Account screen
@@ -94,11 +72,7 @@ Please fork and clone this project and play around, use it as a starting point t
 
 ---
 
-<br>
-
 ## Installation
-
-<br>
 
 1. Fork and clone repository to your local machine
 
@@ -114,11 +88,7 @@ Please fork and clone this project and play around, use it as a starting point t
 
 ---
 
-<br>
-
 ## Built With
-
-<br>
 
 - [Axios](https://axios-http.com/docs/intro)
 - [Cors](https://www.npmjs.com/package/cors)
@@ -137,10 +107,6 @@ Please fork and clone this project and play around, use it as a starting point t
 
 ---
 
-<br>
-
 ## Support
-
-<br>
 
 If you have suggetions or issues, please email me at mason.leonhart@gmail.com
